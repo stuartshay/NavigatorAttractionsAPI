@@ -1,1 +1,1 @@
-# -NavigatorAttractionsAPI
+# NavigatorAttractionsAPI
