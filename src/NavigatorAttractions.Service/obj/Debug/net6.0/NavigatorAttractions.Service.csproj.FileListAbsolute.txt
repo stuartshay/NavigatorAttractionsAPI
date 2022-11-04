@@ -1,0 +1,17 @@
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\bin\Debug\net6.0\NavigatorAttractions.Service.deps.json
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\bin\Debug\net6.0\NavigatorAttractions.Service.dll
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\bin\Debug\net6.0\NavigatorAttractions.Service.pdb
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\bin\Debug\net6.0\NavigatorAttractions.Core.dll
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\bin\Debug\net6.0\NavigatorAttractions.Data.dll
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\bin\Debug\net6.0\NavigatorAttractions.Data.pdb
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\bin\Debug\net6.0\NavigatorAttractions.Core.pdb
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\NavigatorAttractions.Service.csproj.AssemblyReference.cache
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\NavigatorAttractions.Service.GeneratedMSBuildEditorConfig.editorconfig
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\NavigatorAttractions.Service.AssemblyInfoInputs.cache
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\NavigatorAttractions.Service.AssemblyInfo.cs
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\NavigatorAttractions.Service.csproj.CoreCompileInputs.cache
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\NavigatorAttractions.Service.csproj.CopyComplete
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\NavigatorAttractions.Service.dll
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\refint\NavigatorAttractions.Service.dll
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\NavigatorAttractions.Service.pdb
+F:\Build3\NavigatorAttractionsAPI\src\NavigatorAttractions.Service\obj\Debug\net6.0\ref\NavigatorAttractions.Service.dll
