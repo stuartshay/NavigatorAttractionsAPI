@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using NavigatorAttractions.Data.Entities;
+using NavigatorAttractions.Data.Entities.Attractions;
 using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Service.Models;
 using NavigatorAttractions.Service.Services.Interface;

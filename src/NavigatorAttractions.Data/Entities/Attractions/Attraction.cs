@@ -1,8 +1,11 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using Navigator.MongoRepository;
+using NavigatorAttractions.Data.Entities.Attractions.Maps;
+using NavigatorAttractions.Data.Entities.Attractions.References;
+using NavigatorAttractions.Data.Entities.Locations;
 
-namespace NavigatorAttractions.Data.Entities
+namespace NavigatorAttractions.Data.Entities.Attractions
 {
     [CollectionName("attractions")]
     [BsonIgnoreExtraElements(true)]
@@ -33,10 +36,10 @@ namespace NavigatorAttractions.Data.Entities
         [BsonElement("display")]
         public string Display { get; set; }
 
-        //[BsonElement("displayDate")]
-        //public DisplayDate DisplayDate { get; set; }
+        [BsonElement("displayDate")]
+        public DisplayDate DisplayDate { get; set; }
 
-        //public loc loc { get; set; }
+        public loc loc { get; set; }
 
         [BsonElement("keywords")]
         [BsonIgnoreIfNull(true)]
@@ -46,24 +49,24 @@ namespace NavigatorAttractions.Data.Entities
         [BsonIgnoreIfNull(true)]
         public List<string> Aliases { get; set; }
 
-        //[BsonElement("inventory")]
-        //public Inventory Inventory { get; set; }
+        [BsonElement("inventory")]
+        public Inventory Inventory { get; set; }
 
-        //[BsonElement("inscription")]
-        //public Inscription Inscription { get; set; }
+        [BsonElement("inscription")]
+        public Inscription Inscription { get; set; }
 
         //[BsonElement("photo")]
         //public AttractionPhoto Photo { get; set; }
 
-        //[BsonElement("map")]
-        //public Map Map { get; set; }
+        [BsonElement("map")]
+        public Map Map { get; set; }
 
-        //[BsonIgnoreIfNull]
-        //[BsonElement("machineTags")]
-        //public List<MachineTag> MachineTags { get; set; }
+        [BsonIgnoreIfNull]
+        [BsonElement("machineTags")]
+        public List<MachineTag> MachineTags { get; set; }
 
-        //[BsonIgnoreIfNull]
-        //[BsonElement("references")]
-        //public List<Reference> References { get; set; }
+        [BsonIgnoreIfNull]
+        [BsonElement("references")]
+        public List<Reference> References { get; set; }
     }
 }

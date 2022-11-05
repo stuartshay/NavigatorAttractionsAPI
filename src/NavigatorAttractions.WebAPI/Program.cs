@@ -92,8 +92,10 @@ void AddServices()
     var config = configuration.Get<ApplicationOptions>();
 
     services.AddSingleton<IAttractionRepository>(new AttractionRepository(config.ConnectionStrings.MongoNavigator));
-
-    builder.Services.AddScoped<IAttractionService, AttractionService>();
+    services.AddSingleton<IPhotoRepository>(new PhotoRepository(config.ConnectionStrings.MongoNavigator));
+    
+    services.AddScoped<IAttractionService, AttractionService>();
+    services.AddScoped<IPhotoService, PhotoService>();
 }
 
 void SetupApp()
