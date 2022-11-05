@@ -1,9 +1,11 @@
-﻿namespace NavigatorAttractions.Data.Interface
+﻿using NavigatorAttractions.Data.Entities;
+
+namespace NavigatorAttractions.Data.Interface
 {
 
     public interface IAttractionRepository
     {
-        //Task<Attraction> Get(string id);
+        Task<Attraction> Get(string id);
 
         //Task<long> GetAttractionsCount(AttractionRequest request);
 
