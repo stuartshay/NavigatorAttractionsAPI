@@ -7,6 +7,10 @@ using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using NavigatorAttractions.Core.Configuration;
 using NavigatorAttractions.Core.Logging;
+using NavigatorAttractions.Data.Interface;
+using NavigatorAttractions.Data.Repository;
+using NavigatorAttractions.Service.Services;
+using NavigatorAttractions.Service.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -85,11 +89,13 @@ void SetupMappings()
 
 void AddServices()
 {
-    //var config = configuration.Get<ApplicationOptions>();
-     
-    //services.AddSingleton<IAttractionRepository>(new AttractionRepository(config.ConnectionStrings.MongoNavigator));
+    var config = configuration.Get<ApplicationOptions>();
 
-    //builder.Services.AddScoped<IAttractionService, AttractionService>();
+    services.AddSingleton<IAttractionRepository>(new AttractionRepository(config.ConnectionStrings.MongoNavigator));
+    services.AddSingleton<IPhotoRepository>(new PhotoRepository(config.ConnectionStrings.MongoNavigator));
+    
+    services.AddScoped<IAttractionService, AttractionService>();
+    services.AddScoped<IPhotoService, PhotoService>();
 }
 
 void SetupApp()
