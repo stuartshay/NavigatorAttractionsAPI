@@ -158,7 +158,7 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-cloudrun@main
         with:
-          service: ${{ env.SERVICE }}-${{ env.GITHUB_REF_SLUG }}
+          service: ${{ env.SERVICE }}
           image: ${{ env.GCP_DOCKER_IMAGE }}:${{ env.DOCKER_IMAGE_TAG}}
           region: ${{ env.REGION }}
           env_vars: 'ASPNETCORE_ENVIRONMENT=${{ env.ASPNETCORE_ENVIRONMENT }}'
