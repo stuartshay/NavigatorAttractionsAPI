@@ -59,14 +59,14 @@ namespace NavigatorAttractions.Data.Entities.Attractions
         //public AttractionPhoto Photo { get; set; }
 
         [BsonElement("map")]
-        public Map Map { get; set; }
+        public Map? Map { get; set; }
 
         [BsonIgnoreIfNull]
         [BsonElement("machineTags")]
-        public List<MachineTag> MachineTags { get; set; }
+        public List<MachineTag>? MachineTags { get; set; }
 
         [BsonIgnoreIfNull]
         [BsonElement("references")]
-        public List<Reference> References { get; set; }
+        public List<Reference>? References { get; set; }
     }
 }

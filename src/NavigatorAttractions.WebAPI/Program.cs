@@ -1,16 +1,21 @@
 using AutoMapper;
 using Elastic.Apm.AspNetCore;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.OpenApi.Models;
-using Serilog;
-using Swashbuckle.AspNetCore.Filters;
-using System.Reflection;
 using NavigatorAttractions.Core.Configuration;
+using NavigatorAttractions.Core.Constants;
+using NavigatorAttractions.Core.Health;
 using NavigatorAttractions.Core.Logging;
 using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Data.Repository;
+using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
 using NavigatorAttractions.Service.Services.Interface;
+using Serilog;
+using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -21,6 +26,7 @@ SetupLogger();
 SetupServices();
 SetupMappings();
 AddServices();
+AddHealthCheckServices();
 
 var app = builder.Build();
 SetupApp();
@@ -76,13 +82,16 @@ void SetupServices()
         c.IncludeXmlComments(xmlFilePath);
     });
     services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
+
+    // Razor Pages
+    services.AddRazorPages();
 }
 
 void SetupMappings()
 {
     services.AddSingleton(provider => new MapperConfiguration(cfg =>
     {
-        //cfg.AddProfile(new AttractionProfile());
+        cfg.AddProfile(new AttractionProfile());
         //cfg.AddProfile(new MapProfile());
     }).CreateMapper());
 }
@@ -98,6 +107,22 @@ void AddServices()
     services.AddScoped<IPhotoService, PhotoService>();
 }
 
+void AddHealthCheckServices()
+{
+    var config = configuration.Get<ApplicationOptions>();
+    var mongoConnectionString = config.ConnectionStrings.MongoNavigator;
+
+    services
+        .AddHealthChecksUI()
+        .AddInMemoryStorage()
+        .Services
+        .AddHealthChecks()
+        .AddVersionHealthCheck()
+        .AddMongoDb(mongoConnectionString)
+        .Services
+        .AddControllers();
+}
+
 void SetupApp()
 {
     app.UseHttpsRedirection();
@@ -108,12 +133,27 @@ void SetupApp()
     app.UseSwaggerUI();
 
     // Elastic APM
-    app.UseElasticApm(configuration);
+    var elasticEnabled = configuration.GetValue<bool>(ApplicationConstants.ElasticEnabled);
+    if (elasticEnabled)
+    {
+        app.UseElasticApm(configuration);
+    }
 
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.MapControllers();
+    app.UseRouting();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        endpoints.MapRazorPages();
+
+        endpoints.MapHealthChecks("healthz", new HealthCheckOptions()
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        });
+    });
 
     var option = new RewriteOptions();
     option.AddRedirect("^$", "swagger");

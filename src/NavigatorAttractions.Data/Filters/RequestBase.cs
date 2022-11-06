@@ -6,7 +6,7 @@
 
         public int PageSize { get; set; }
 
-        public List<string> FieldsList { get; set; }
+        public List<string>? FieldsList { get; set; }
 
         public string SortColumn { get; set; }
 

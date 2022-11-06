@@ -7,13 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8BA64D2F-12C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{3C1881D9-4BD4-4DDE-9D8C-FA9A067F37FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorAttractions.Core", "src\NavigatorAttractions.Core\NavigatorAttractions.Core.csproj", "{E81A475B-BFAC-44A4-94BB-BC5F2FDBA8E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigatorAttractions.Core", "src\NavigatorAttractions.Core\NavigatorAttractions.Core.csproj", "{E81A475B-BFAC-44A4-94BB-BC5F2FDBA8E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorAttractions.Data", "src\NavigatorAttractions.Data\NavigatorAttractions.Data.csproj", "{7B7D21F1-F524-4B74-B2ED-67958D11C839}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigatorAttractions.Data", "src\NavigatorAttractions.Data\NavigatorAttractions.Data.csproj", "{7B7D21F1-F524-4B74-B2ED-67958D11C839}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorAttractions.Service", "src\NavigatorAttractions.Service\NavigatorAttractions.Service.csproj", "{CBAEE49A-1A0E-489A-BC37-A6E4BC00A8AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigatorAttractions.Service", "src\NavigatorAttractions.Service\NavigatorAttractions.Service.csproj", "{CBAEE49A-1A0E-489A-BC37-A6E4BC00A8AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorAttractions.WebAPI", "src\NavigatorAttractions.WebAPI\NavigatorAttractions.WebAPI.csproj", "{4C5963F0-E2EC-40A6-A90C-0D9C1954B8CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigatorAttractions.WebAPI", "src\NavigatorAttractions.WebAPI\NavigatorAttractions.WebAPI.csproj", "{4C5963F0-E2EC-40A6-A90C-0D9C1954B8CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorAttractions.WebAPI.Test", "test\NavigatorAttractions.WebAPI.Test\NavigatorAttractions.WebAPI.Test.csproj", "{6815B16E-82B8-41C3-B07C-89D35F741C71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorAttractions.Service.Test", "test\NavigatorAttractions.Service.Test\NavigatorAttractions.Service.Test.csproj", "{C5D25C57-A921-4649-BD41-E27BA08C5F3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,14 @@ Global
 		{4C5963F0-E2EC-40A6-A90C-0D9C1954B8CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C5963F0-E2EC-40A6-A90C-0D9C1954B8CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C5963F0-E2EC-40A6-A90C-0D9C1954B8CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6815B16E-82B8-41C3-B07C-89D35F741C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6815B16E-82B8-41C3-B07C-89D35F741C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6815B16E-82B8-41C3-B07C-89D35F741C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6815B16E-82B8-41C3-B07C-89D35F741C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D25C57-A921-4649-BD41-E27BA08C5F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D25C57-A921-4649-BD41-E27BA08C5F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D25C57-A921-4649-BD41-E27BA08C5F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D25C57-A921-4649-BD41-E27BA08C5F3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +58,8 @@ Global
 		{7B7D21F1-F524-4B74-B2ED-67958D11C839} = {8BA64D2F-12C2-4258-AD84-9DB9201D4A19}
 		{CBAEE49A-1A0E-489A-BC37-A6E4BC00A8AC} = {8BA64D2F-12C2-4258-AD84-9DB9201D4A19}
 		{4C5963F0-E2EC-40A6-A90C-0D9C1954B8CA} = {8BA64D2F-12C2-4258-AD84-9DB9201D4A19}
+		{6815B16E-82B8-41C3-B07C-89D35F741C71} = {3C1881D9-4BD4-4DDE-9D8C-FA9A067F37FC}
+		{C5D25C57-A921-4649-BD41-E27BA08C5F3E} = {3C1881D9-4BD4-4DDE-9D8C-FA9A067F37FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7B6E82B-A1FE-4639-98F7-0DE4B2CF3A9A}

@@ -1,4 +1,6 @@
-﻿using NavigatorAttractions.Data.Entities.Photos;
+﻿using NavigatorAttractions.Core.Models;
+using NavigatorAttractions.Data.Entities.Photos;
+using NavigatorAttractions.Data.Filters;
 
 namespace NavigatorAttractions.Data.Interface
 {
@@ -18,9 +20,9 @@ namespace NavigatorAttractions.Data.Interface
 
         Task<IList<Photo>> GetPhotos(string[] tags);
 
-        //Task<IEnumerable<Photo>> GetPhotos(PhotoRequest request, out long totalRecordsCount);
+        Task<IEnumerable<Photo>> GetPhotos(PhotoRequest request, out long totalRecordsCount);
 
-        //Task<RepositoryActionResult<Photo>> Upsert(Photo item);
+        Task<RepositoryActionResult<Photo>> Upsert(Photo item);
 
         void SavePhoto(Photo photo);
     }
