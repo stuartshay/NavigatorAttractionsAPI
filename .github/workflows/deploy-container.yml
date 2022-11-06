@@ -13,7 +13,6 @@ env:
   REGION: us-east4
   ASPNETCORE_ENVIRONMENT: CloudRun
 
-
 on:
   workflow_dispatch:
 
@@ -142,14 +141,11 @@ jobs:
           service_account_key: ${{ secrets.GH_ACTIONS_NAVIGATOR }}
           export_default_credentials: true
 
-
-
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        credentials_json: '${{ secrets.GH_ACTIONS_NAVIGATOR  }}'
-
-
+      - name: Google Auth
+        id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GH_ACTIONS_NAVIGATOR  }}'
 
       - name: Deploy to Cloud Run
         id: deploy
@@ -160,6 +156,3 @@ jobs:
           region: ${{ env.REGION }}
           env_vars: 'ASPNETCORE_ENVIRONMENT=${{ env.ASPNETCORE_ENVIRONMENT }}'
           flags: '--memory 1Gi --port 5000 --allow-unauthenticated'
-
-
-
