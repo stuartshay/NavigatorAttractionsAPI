@@ -149,7 +149,7 @@ jobs:
 
       - name: Deploy to Cloud Run
         id: deploy
-        uses: google-github-actions/deploy-cloudrun@main
+        uses: 'google-github-actions/deploy-cloudrun@v0'
         with:
           service: ${{ env.SERVICE }}
           image: ${{ env.GCP_DOCKER_IMAGE }}:${{ env.DOCKER_IMAGE_TAG}}
