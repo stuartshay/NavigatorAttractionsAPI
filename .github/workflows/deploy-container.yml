@@ -38,6 +38,15 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
+      - name: NavigatorAttractions.Service.Test - Unit Test
+        uses: zyborg/dotnet-tests-report@v1
+        with:
+          project_path: test/NavigatorAttractions.Service.Test
+          report_name: NavigatorAttractions.Service.Test
+          report_title: NavigatorAttractions.Service.Test - Unit Test
+          fail_build_on_failed_tests: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: NavigatorAttractions.WebAPI.Test - Unit Test
         uses: zyborg/dotnet-tests-report@v1
         with:
