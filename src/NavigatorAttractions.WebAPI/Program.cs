@@ -11,6 +11,8 @@ using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Data.Repository;
 using NavigatorAttractions.Service.Services;
 using NavigatorAttractions.Service.Services.Interface;
+using NavigatorAttractions.Core.Constants;
+using NavigatorAttractions.Service.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -82,7 +84,7 @@ void SetupMappings()
 {
     services.AddSingleton(provider => new MapperConfiguration(cfg =>
     {
-        //cfg.AddProfile(new AttractionProfile());
+        cfg.AddProfile(new AttractionProfile());
         //cfg.AddProfile(new MapProfile());
     }).CreateMapper());
 }
@@ -108,7 +110,11 @@ void SetupApp()
     app.UseSwaggerUI();
 
     // Elastic APM
-    app.UseElasticApm(configuration);
+    var elasticEnabled = configuration.GetValue<bool>(ApplicationConstants.ElasticEnabled);
+    if (elasticEnabled)
+    {
+        app.UseElasticApm(configuration);
+    }
 
     app.UseAuthentication();
     app.UseAuthorization();

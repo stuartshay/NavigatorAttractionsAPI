@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using NavigatorAttractions.Data.Entities.Attractions;
 using NavigatorAttractions.Data.Interface;
-using NavigatorAttractions.Service.Models;
+using NavigatorAttractions.Service.Models.Attactions;
 using NavigatorAttractions.Service.Services.Interface;
 
 namespace NavigatorAttractions.Service.Services
@@ -25,7 +24,7 @@ namespace NavigatorAttractions.Service.Services
         public async Task<AttractionModel> GetAttraction(string id)
         {
             var result = await _attractionRepository.Get(id); 
-            var mappedResult = _mapper.Map<Attraction, AttractionModel>(result);
+            var mappedResult = _mapper.Map<AttractionModel>(result);
 
             return mappedResult;
         }

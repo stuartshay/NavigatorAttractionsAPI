@@ -1,27 +1,32 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using GeoJSON.Net.Geometry;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NavigatorAttractions.Core.Models;
 using NavigatorAttractions.Service.Models;
 using NavigatorAttractions.Service.Services.Interface;
+using NavigatorAttractions.WebAPI.Constants;
 
 namespace NavigatorAttractions.WebAPI.Controllers
 {
     /// <summary>
     /// Attraction Controller.
     /// </summary>
-    //[Route(RouteConstants.AttractionRoute)]
-    [EnableCors("AllowAll")]
+    [Route(RouteConstants.AttractionRoute)]
+    //[EnableCors("AllowAll")]
     public class AttractionController : ControllerBase
     {
         private readonly IAttractionService _attractionService;
+
+        private readonly ILogger<AttractionController> _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AttractionController"/> class.
         /// </summary>
         /// <param name="attractionService"></param>
-        public AttractionController(IAttractionService attractionService)
+        public AttractionController(IAttractionService attractionService, ILogger<AttractionController> logger)
         {
-            this._attractionService = attractionService ?? throw new ArgumentNullException(nameof(attractionService));
+            _attractionService = attractionService ?? throw new ArgumentNullException(nameof(attractionService));
+            _logger = logger;
         }
 
         /// <summary>
@@ -33,7 +38,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
         [HttpGet]
         //[ProducesResponseType(typeof(AttractionModel), 200)]
         //[Produces("application/json", Type = typeof(AttractionModel))]
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> Get(string id = "533cddaf5c9596ef08143d56")
         {
             var attraction = await _attractionService.GetAttraction(id);
             if (attraction == null)

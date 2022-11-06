@@ -32,7 +32,7 @@ namespace NavigatorAttractions.Core.Logging
                     .WriteTo.Console();
 
                 var elasticUrl = hostingContext.Configuration.GetValue<string>("Logging:ElasticSearchConfiguration:ElasticUrl");
-                var elasticEnabled = hostingContext.Configuration.GetValue<bool>("Logging:ElasticSearchConfiguration:ElasticEnabled");
+                var elasticEnabled = hostingContext.Configuration.GetValue<bool>(ApplicationConstants.ElasticEnabled);
                 if (!string.IsNullOrEmpty(elasticUrl) && elasticEnabled)
                 {
                     loggerConfiguration.WriteTo.Elasticsearch(

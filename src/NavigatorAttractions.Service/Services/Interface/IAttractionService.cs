@@ -4,6 +4,6 @@ namespace NavigatorAttractions.Service.Services.Interface
 {
     public interface IAttractionService
     {
-        Task<AttractionModel> GetAttraction(string id);
+        Task<NavigatorAttractions.Service.Models.Attactions.AttractionModel> GetAttraction(string id);
     }
 }
