@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
+using NavigatorAttractions.Data.Filters;
 using NavigatorAttractions.Service.Models.Attractions;
 using NavigatorAttractions.Service.Services.Interface;
 using NavigatorAttractions.WebAPI.Controllers;
+using NavigatorAttractions.WebAPI.Filters;
 using NavigatorAttractions.WebAPI.Test.Data;
 using System.Threading.Tasks;
 using Xunit;
@@ -63,69 +65,69 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             Assert.True(objectResult.StatusCode == 404);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_Attraction_Paging_ReturnsData()
         {
-            //int limit = 100;
-            //int page = 2;
-            //int total = 450;
+            int limit = 100;
+            int page = 2;
+            int total = 450;
 
-            //var request = new AttractionRequestModel { PhotoSize = "n" };
-            //var query = new AttractionRequest { Page = page, PageSize = limit, PhotoSize = "n" };
+            var request = new AttractionRequestModel { PhotoSize = "n" };
+            var query = new AttractionRequest { Page = page, PageSize = limit, PhotoSize = "n" };
 
-            //var dataSet = AttractionDataSet.GetAttractionModelPagedResult(page, limit, total);
+            var dataSet = AttractionDataSet.GetAttractionModelPagedResult(page, limit, total);
 
-            //var attractionService = new Mock<IAttractionService>();
-            //attractionService.Setup(b => b.GetAttractions(query))
-            //        .ReturnsAsync(dataSet);
+            var attractionService = new Mock<IAttractionService>();
+            attractionService.Setup(b => b.GetAttractions(query))
+                    .ReturnsAsync(dataSet);
 
-            //var controller = GetAttractionController(attractionService.Object);
+            var controller = GetAttractionController(attractionService.Object);
 
-            //// Act
-            //var sut = await controller.GetList(request, limit, page);
+            // Act
+            var sut = await controller.GetList(request, limit, page);
 
-            //// Assert
-            //Assert.NotNull(sut);
-            //Assert.IsType<OkObjectResult>(sut);
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<OkObjectResult>(sut);
 
-            //var objectResult = sut as OkObjectResult;
-            //Assert.NotNull(objectResult);
-            //Assert.True(objectResult.StatusCode == 200);
+            var objectResult = sut as OkObjectResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 200);
         }
 
-        [Theory(Skip = "TODO")]
+        [Theory()]
         [InlineData("grid", "m")]
         [InlineData("list", "t")]
         [Trait("Category", "Unit")]
         public async Task Get_Attraction_Paging_Filter_Display(string display, string expectedPhotoSize)
         {
-            //int limit = 100;
-            //int page = 2;
-            //int total = 450;
+            int limit = 100;
+            int page = 2;
+            int total = 450;
 
-            //var request = new AttractionRequestModel { Display = display };
-            //var query = new AttractionRequest { Page = page, PageSize = limit };
+            var request = new AttractionRequestModel { Display = display };
+            var query = new AttractionRequest { Page = page, PageSize = limit };
 
-            //var dataSet = AttractionDataSet.GetAttractionModelPagedResult(page, limit, total);
+            var dataSet = AttractionDataSet.GetAttractionModelPagedResult(page, limit, total);
 
-            //var attractionService = new Mock<IAttractionService>();
-            //attractionService.Setup(b => b.GetAttractions(query))
-            //    .ReturnsAsync(dataSet);
+            var attractionService = new Mock<IAttractionService>();
+            attractionService.Setup(b => b.GetAttractions(query))
+                .ReturnsAsync(dataSet);
 
-            //var controller = GetAttractionController(attractionService.Object);
+            var controller = GetAttractionController(attractionService.Object);
 
-            //// Act
-            //var sut = await controller.GetList(request, limit, page);
+            // Act
+            var sut = await controller.GetList(request, limit, page);
 
-            //// Assert
-            //Assert.Equal(expectedPhotoSize, request.PhotoSize);
-            //Assert.NotNull(sut);
-            //Assert.IsType<OkObjectResult>(sut);
+            // Assert
+            Assert.Equal(expectedPhotoSize, request.PhotoSize);
+            Assert.NotNull(sut);
+            Assert.IsType<OkObjectResult>(sut);
 
-            //var objectResult = sut as OkObjectResult;
-            //Assert.NotNull(objectResult);
-            //Assert.True(objectResult.StatusCode == 200);
+            var objectResult = sut as OkObjectResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 200);
         }
 
         [Fact(Skip = "TODO")]

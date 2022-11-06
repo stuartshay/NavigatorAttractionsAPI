@@ -26,7 +26,7 @@
 
         public bool HasPhotos { get; set; }
 
-        //public DisplayDateModel DisplayDate { get; set; }
+        public DisplayDateModel DisplayDate { get; set; }
 
         public List<string> Keywords { get; set; }
 
@@ -42,7 +42,7 @@
 
         //public MapModel Map { get; set; }
 
-        //public List<MachineTagModel> MachineTags { get; set; }
+        public List<MachineTagModel> MachineTags { get; set; }
 
         //public List<ReferenceModel> References { get; set; }
 

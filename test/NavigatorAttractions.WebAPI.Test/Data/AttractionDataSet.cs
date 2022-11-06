@@ -5,6 +5,7 @@ using NavigatorAttractions.Service.Models.Attractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NavigatorAttractions.Core.Models;
 
 namespace NavigatorAttractions.WebAPI.Test.Data
 {
@@ -44,6 +45,21 @@ namespace NavigatorAttractions.WebAPI.Test.Data
             return GetAttractions(1).First();
         }
 
+        public static PagedResultModel<dynamic> GetAttractionModelPagedResult(int page, int limit, int total)
+        {
+            return new PagedResultModel<dynamic>()
+            {
+                Total = total,
+                Limit = limit,
+                Page = page,
+                Results = GetAttractions(limit).Cast<dynamic>().ToList(),
+            };
+        }
+
+
+
+
+
 
         //public static List<AttractionModel> GetAttractionModel(int count)
         //{
@@ -73,16 +89,7 @@ namespace NavigatorAttractions.WebAPI.Test.Data
         //    return attractionFaker.Generate(count);
         //}
 
-        //public static PagedResultModel<dynamic> GetAttractionModelPagedResult(int page, int limit, int total)
-        //{
-        //    return new PagedResultModel<dynamic>()
-        //    {
-        //        Total = total,
-        //        Limit = limit,
-        //        Page = page,
-        //        Results = GetAttractionModel(limit).Cast<dynamic>().ToList(),
-        //    };
-        //}
+
 
 
 

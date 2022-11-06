@@ -15,6 +15,15 @@ namespace NavigatorAttractions.Service.Profiles
                 ;
 
             CreateMap<AttractionModel, Attraction>();
+            
+            // Entity to Model 
+            CreateMap<MachineTag, MachineTagModel>();
+            CreateMap<DisplayDate, DisplayDateModel>();
+
+            //Model to Entity
+            CreateMap<DisplayDateModel, DisplayDate>();
+
+
 
 
 
@@ -23,7 +32,7 @@ namespace NavigatorAttractions.Service.Profiles
             //CreateMap<AttractionPhoto, AttractionPhotoModel>();
             //CreateMap<AttractionPhotoModel, AttractionPhoto>();
 
-            //CreateMap<MachineTag, MachineTagModel>();
+
 
             //CreateMap<Photo, AttractionPhotoModel>()
             //    .ForMember(m => m.Url, options => options.Ignore())
@@ -48,8 +57,7 @@ namespace NavigatorAttractions.Service.Profiles
             //CreateMap<Inscription, InscriptionModel>();
             //CreateMap<InscriptionModel, Inscription>();
 
-            //CreateMap<DisplayDate, DisplayDateModel>();
-            //CreateMap<DisplayDateModel, DisplayDate>();
+
 
             //CreateMap<loc, LocModel>();
             //CreateMap<LocModel, loc>();

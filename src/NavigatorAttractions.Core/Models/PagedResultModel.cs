@@ -30,6 +30,6 @@
             }
         }
 
-        public List<T> Results { get; set; }
+        public List<dynamic> Results { get; set; }
     }
 }

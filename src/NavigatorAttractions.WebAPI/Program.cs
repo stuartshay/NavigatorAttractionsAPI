@@ -110,6 +110,7 @@ void AddServices()
 void AddHealthCheckServices()
 {
     var config = configuration.Get<ApplicationOptions>();
+    var mongoConnectionString = config.ConnectionStrings.MongoNavigator;
 
     services
         .AddHealthChecksUI()
@@ -117,6 +118,7 @@ void AddHealthCheckServices()
         .Services
         .AddHealthChecks()
         .AddVersionHealthCheck()
+        .AddMongoDb(mongoConnectionString)
         .Services
         .AddControllers();
 }
