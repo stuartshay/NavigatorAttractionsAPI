@@ -1,9 +1,10 @@
 ﻿using NavigatorAttractions.Service.Models;
+using NavigatorAttractions.Service.Models.Attractions;
 
 namespace NavigatorAttractions.Service.Services.Interface
 {
     public interface IAttractionService
     {
-        Task<NavigatorAttractions.Service.Models.Attactions.AttractionModel> GetAttraction(string id);
+        Task<AttractionModel> GetAttraction(string id);
     }
 }

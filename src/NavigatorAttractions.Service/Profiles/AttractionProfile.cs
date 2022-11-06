@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using NavigatorAttractions.Data.Entities.Attractions;
-using NavigatorAttractions.Service.Models.Attactions;
+using NavigatorAttractions.Service.Models.Attractions;
 
 namespace NavigatorAttractions.Service.Profiles
 {

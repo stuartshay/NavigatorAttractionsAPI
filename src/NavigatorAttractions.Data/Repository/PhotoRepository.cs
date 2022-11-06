@@ -3,7 +3,9 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Navigator.MongoRepository.Repository;
 using NavigatorAttractions.Core.Helpers;
+using NavigatorAttractions.Core.Models;
 using NavigatorAttractions.Data.Entities.Photos;
+using NavigatorAttractions.Data.Filters;
 using NavigatorAttractions.Data.Interface;
 
 namespace NavigatorAttractions.Data.Repository
@@ -79,42 +81,42 @@ namespace NavigatorAttractions.Data.Repository
             return await collection.Find(builder).ToListAsync();
         }
 
-        //public Task<IEnumerable<Photo>> GetPhotos(PhotoRequest request, out long totalRecordsCount)
-        //{
-        //    Guard.ThrowIfNull(request, nameof(request));
+        public Task<IEnumerable<Photo>> GetPhotos(PhotoRequest request, out long totalRecordsCount)
+        {
+            Guard.ThrowIfNull(request, nameof(request));
 
-        //    var builder = Builders<Photo>.Filter.In("machineTags.tag", request.Tags);
+            var builder = Builders<Photo>.Filter.In("machineTags.tag", request.Tags);
 
-        //    var sortBuilder = Builders<Photo>.Sort;
+            var sortBuilder = Builders<Photo>.Sort;
 
-        //    var sortColumn = !string.IsNullOrWhiteSpace(request.SortColumn.Trim()) ? request.SortColumn.Trim() : "title";
-        //    var sort = request.SortOrder != null && request.SortOrder == "desc" ?
-        //                        sortBuilder.Descending(sortColumn) : sortBuilder.Ascending(sortColumn);
+            var sortColumn = !string.IsNullOrWhiteSpace(request.SortColumn.Trim()) ? request.SortColumn.Trim() : "title";
+            var sort = request.SortOrder != null && request.SortOrder == "desc" ?
+                                sortBuilder.Descending(sortColumn) : sortBuilder.Ascending(sortColumn);
 
-        //    var result = collection.Find(builder).Sort(sort).ToListAsync().Result;
-        //    totalRecordsCount = result.Count;
+            var result = collection.Find(builder).Sort(sort).ToListAsync().Result;
+            totalRecordsCount = result.Count;
 
-        //    int skippedCount = (request.Page - 1) * request.PageSize;
-        //    var pagedList = result.Skip(skippedCount).Take(request.PageSize);
+            int skippedCount = (request.Page - 1) * request.PageSize;
+            var pagedList = result.Skip(skippedCount).Take(request.PageSize);
 
-        //    return Task.FromResult(pagedList);
-        //}
+            return Task.FromResult(pagedList);
+        }
 
-        //public async Task<RepositoryActionResult<Photo>> Upsert(Photo item)
-        //{
-        //    var photo = await collection.Find(x => x.PhotoId == item.PhotoId).FirstOrDefaultAsync();
-        //    item.Id = photo == null ? ObjectId.GenerateNewId().ToString() : photo.Id;
+        public async Task<RepositoryActionResult<Photo>> Upsert(Photo item)
+        {
+            var photo = await collection.Find(x => x.PhotoId == item.PhotoId).FirstOrDefaultAsync();
+            item.Id = photo == null ? ObjectId.GenerateNewId().ToString() : photo.Id;
 
-        //    var filter = Builders<Photo>.Filter.Eq(x => x.Id, item.Id);
-        //    var options = new FindOneAndReplaceOptions<Photo, Photo>
-        //    {
-        //        IsUpsert = true,
-        //        ReturnDocument = ReturnDocument.After,
-        //    };
+            var filter = Builders<Photo>.Filter.Eq(x => x.Id, item.Id);
+            var options = new FindOneAndReplaceOptions<Photo, Photo>
+            {
+                IsUpsert = true,
+                ReturnDocument = ReturnDocument.After,
+            };
 
-        //    var result = await collection.FindOneAndReplaceAsync(filter, item, options);
-        //    return new RepositoryActionResult<Photo>(result);
-        //}
+            var result = await collection.FindOneAndReplaceAsync(filter, item, options);
+            return new RepositoryActionResult<Photo>(result);
+        }
 
         public void SavePhoto(Photo photo)
         {

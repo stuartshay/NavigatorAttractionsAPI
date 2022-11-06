@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using NavigatorAttractions.Data.Interface;
-using NavigatorAttractions.Service.Models.Attactions;
+using NavigatorAttractions.Service.Models.Attractions;
 using NavigatorAttractions.Service.Services.Interface;
 
 namespace NavigatorAttractions.Service.Services

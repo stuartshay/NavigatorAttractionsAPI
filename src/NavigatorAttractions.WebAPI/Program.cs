@@ -1,18 +1,21 @@
 using AutoMapper;
 using Elastic.Apm.AspNetCore;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.OpenApi.Models;
-using Serilog;
-using Swashbuckle.AspNetCore.Filters;
-using System.Reflection;
 using NavigatorAttractions.Core.Configuration;
+using NavigatorAttractions.Core.Constants;
+using NavigatorAttractions.Core.Health;
 using NavigatorAttractions.Core.Logging;
 using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Data.Repository;
+using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
 using NavigatorAttractions.Service.Services.Interface;
-using NavigatorAttractions.Core.Constants;
-using NavigatorAttractions.Service.Profiles;
+using Serilog;
+using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -23,6 +26,7 @@ SetupLogger();
 SetupServices();
 SetupMappings();
 AddServices();
+AddHealthCheckServices();
 
 var app = builder.Build();
 SetupApp();
@@ -78,6 +82,9 @@ void SetupServices()
         c.IncludeXmlComments(xmlFilePath);
     });
     services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
+
+    // Razor Pages
+    services.AddRazorPages();
 }
 
 void SetupMappings()
@@ -100,6 +107,20 @@ void AddServices()
     services.AddScoped<IPhotoService, PhotoService>();
 }
 
+void AddHealthCheckServices()
+{
+    var config = configuration.Get<ApplicationOptions>();
+
+    services
+        .AddHealthChecksUI()
+        .AddInMemoryStorage()
+        .Services
+        .AddHealthChecks()
+        .AddVersionHealthCheck()
+        .Services
+        .AddControllers();
+}
+
 void SetupApp()
 {
     app.UseHttpsRedirection();
@@ -119,7 +140,18 @@ void SetupApp()
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.MapControllers();
+    app.UseRouting();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        endpoints.MapRazorPages();
+
+        endpoints.MapHealthChecks("healthz", new HealthCheckOptions()
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        });
+    });
 
     var option = new RewriteOptions();
     option.AddRedirect("^$", "swagger");

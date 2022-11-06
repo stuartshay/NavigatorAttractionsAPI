@@ -38,6 +38,15 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
+      - name: NavigatorAttractions.WebAPI.Test - Unit Test
+        uses: zyborg/dotnet-tests-report@v1
+        with:
+          project_path: test/NavigatorAttractions.WebAPI.Test
+          report_name: NavigatorAttractions.WebAPI.Test
+          report_title: NavigatorAttractions.WebAPI.Test - Unit Test
+          fail_build_on_failed_tests: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     runs-on: ubuntu-latest
     needs: test-netcore
