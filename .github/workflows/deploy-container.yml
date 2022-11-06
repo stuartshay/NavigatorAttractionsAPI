@@ -30,6 +30,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GH_ACTIONS_NAVIGATOR }}
+          export_default_credentials: true
+
+
+
       - name: Setup dotnet 6.0.x
         uses: actions/setup-dotnet@v3
         with:
@@ -138,9 +147,12 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          project_id: ${{ secrets.gcp_project }}
-          service_account_key: ${{ secrets.GH_ACTIONS_SERVICE_ACCOUNT }}
+          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GH_ACTIONS_NAVIGATOR }}
           export_default_credentials: true
+
+
+
 
       - name: Deploy to Cloud Run
         id: deploy
