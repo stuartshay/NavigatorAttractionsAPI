@@ -13,6 +13,7 @@ using NavigatorAttractions.Data.Repository;
 using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
 using NavigatorAttractions.Service.Services.Interface;
+using NavigatorAttractions.WebAPI.Extentsions;
 using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
@@ -49,7 +50,13 @@ void SetupLogger()
 
 void SetupServices()
 {
-    services.AddControllers();
+    services.AddControllers().AddNewtonsoftJson();
+
+    //services.AddControllers(options =>
+    //{
+    //    options.InputFormatters.Insert(0, MyJPIF.GetJsonPatchInputFormatter());
+    //});
+
     services.AddEndpointsApiExplorer();
 
     // Swagger
@@ -80,6 +87,7 @@ void SetupServices()
 
         c.ExampleFilters();
         c.IncludeXmlComments(xmlFilePath);
+        c.DocumentFilter<JsonPatchDocumentFilter>();
     });
     services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
 
