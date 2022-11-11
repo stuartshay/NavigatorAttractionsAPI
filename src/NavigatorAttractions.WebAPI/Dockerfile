@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 
 LABEL org.label-schema.application=${APPLICATION_NAME}
 LABEL org.label-schema.build-date=${BUILD_DATE}
-LABEL org.label-schema.version=6.0.1.${BUILD_NUMBER}
+LABEL org.label-schema.version=7.0.1.${BUILD_NUMBER}
 
 WORKDIR /app
 EXPOSE 80
@@ -15,7 +15,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 
 ENV PATH="/root/.dotnet/tools:${PATH}"
-RUN dotnet tool install --global dotnet-setversion --version 2.4.0
+RUN dotnet tool install --global dotnet-setversion --version 2.5.0
 RUN dotnet tool list -g
 
 WORKDIR /src

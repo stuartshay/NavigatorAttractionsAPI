@@ -7,6 +7,7 @@ using NavigatorAttractions.Core.Models;
 using NavigatorAttractions.Data.Entities.Attractions;
 using NavigatorAttractions.Data.Filters;
 using NavigatorAttractions.Data.Interface;
+using NavigatorAttractions.Data.Results;
 
 namespace NavigatorAttractions.Data.Repository
 {
@@ -110,29 +111,28 @@ namespace NavigatorAttractions.Data.Repository
             return await collection.Find(builder).AnyAsync();
         }
 
-        public Task<IList<string>> GetMachineKeys()
+        public async Task<IList<string>> GetMachineKeys()
         {
-            //var pipeline = new[] {
-                //    new BsonDocument { { "$project", new BsonDocument("tags", "$machineTags.tag") } },
-                //    new BsonDocument { { "$unwind", "$tags" } },
-                //    new BsonDocument { { "$group", new BsonDocument {
-                //        { "_id", "tags"},
-                //        { "items",  new BsonDocument
-                //            {
-                //                { "$addToSet", "$tags" }
-                //            }
-                //        } }
-                //    } }
-                //};
+            var pipeline = new[] {
+                    new BsonDocument { { "$project", new BsonDocument("tags", "$machineTags.tag") } },
+                    new BsonDocument { { "$unwind", "$tags" } },
+                    new BsonDocument { { "$group", new BsonDocument {
+                        { "_id", "tags"},
+                        { "items",  new BsonDocument
+                            {
+                                { "$addToSet", "$tags" }
+                            }
+                        } }
+                    } }
+                };
 
-                //var results = await collection.Aggregate<AggregationResult>(pipeline).ToListAsync();
-                //var result = results.FirstOrDefault().Items
-                //    .Select(r => r.ToLower())
-                //    .OrderBy(r => r)
-                //    .ToList();
+            var results = await collection.Aggregate<AggregationResult>(pipeline).ToListAsync();
+            var result = results.FirstOrDefault().Items
+                .Select(r => r.ToLower())
+                .OrderBy(r => r)
+                .ToList();
 
-                //return result;
-                throw new NotImplementedException();
+            return result;
         }
 
         private FilterDefinition<Attraction> GetAttractionFilter(AttractionRequest request)

@@ -111,9 +111,12 @@ void AddServices()
 
     services.AddSingleton<IAttractionRepository>(new AttractionRepository(config.ConnectionStrings.MongoNavigator));
     services.AddSingleton<IPhotoRepository>(new PhotoRepository(config.ConnectionStrings.MongoNavigator));
-    
+    services.AddSingleton<IReferenceTypeRepository>(new ReferenceTypeRepository(config.ConnectionStrings.MongoNavigator));
+
     services.AddScoped<IAttractionService, AttractionService>();
     services.AddScoped<IPhotoService, PhotoService>();
+    services.AddScoped<IReferenceService, ReferenceService>();
+
 }
 
 void AddHealthCheckServices()
