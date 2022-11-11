@@ -7,7 +7,7 @@ using NavigatorAttractions.Service.Services.Interface;
 using NavigatorAttractions.WebAPI.Constants;
 using NavigatorAttractions.WebAPI.Enums;
 using NavigatorAttractions.WebAPI.Filters;
-using GeoCoordinatePortable;
+using NavigatorAttractions.Data.Filters.GeoRequest;
 
 
 namespace NavigatorAttractions.WebAPI.Controllers
@@ -50,12 +50,12 @@ namespace NavigatorAttractions.WebAPI.Controllers
                 return NotFound();
             }
 
-            //if (attraction.Photo != null)
-            //{
-            //    attraction.Photo.Width = (int)Math.Ceiling(attraction.Photo.Width * 2.4);
-            //    attraction.Photo.Height = (int)Math.Ceiling(attraction.Photo.Height * 2.4);
-            //    attraction.Photo.Url = !string.IsNullOrEmpty(attraction.Photo.Url) ? attraction.Photo.Url.Replace("t.jpg", "m.jpg") : null;
-            //}
+            if (attraction.Photo != null)
+            {
+                attraction.Photo.Width = (int)Math.Ceiling(attraction.Photo.Width * 2.4);
+                attraction.Photo.Height = (int)Math.Ceiling(attraction.Photo.Height * 2.4);
+                attraction.Photo.Url = !string.IsNullOrEmpty(attraction?.Photo?.Url) ? attraction.Photo.Url.Replace("t.jpg", "m.jpg") : null;
+            }
 
             return Ok(attraction);
         }
@@ -83,7 +83,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
             }
 
             // Location Filter
-            // GeoWithin location = null; //FilterLocation(query);
+            GeoWithin? location = query?.LocationType != null ? FilterLocation(query) : null;
 
             var attractionRequest = new AttractionRequest
             {
@@ -100,7 +100,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
                 FieldsList = query?.FieldsList?.RemoveWhitespace().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList(),
                 //ReferenceId = query.ReferenceType?.TypeId != null ? query.ReferenceType.TypeId : null,
                 Search = query?.Search,
-                //Location = location,
+                Location = location,
             };
 
             var results = await _attractionService.GetAttractions(attractionRequest);
@@ -121,7 +121,8 @@ namespace NavigatorAttractions.WebAPI.Controllers
                     query.PhotoSize = "m";
                     query.FieldsList = "id,title,catalog,featureKey,hasPhotos,photo";
                 }
-                else if (string.Equals(query.Display, OutputDisplay.LIST.ToString(), StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(query.Display, OutputDisplay.LIST.ToString(),
+                             StringComparison.OrdinalIgnoreCase))
                 {
                     query.PhotoSize = "t";
                     query.FieldsList = "id,title,catalog,featureKey,hasPhotos,photo,loc,machineTags,geoCoordinate";
@@ -131,53 +132,52 @@ namespace NavigatorAttractions.WebAPI.Controllers
             return query;
         }
 
-        //private GeoWithin FilterLocation(AttractionRequestModel query)
-        //{
+        private GeoWithin? FilterLocation(AttractionRequestModel query)
+        {
+            if (query?.LocationType != null)
+            {
+                // Radius
+                if (string.Equals(query.LocationType.TypeId, "radius", StringComparison.OrdinalIgnoreCase) &&
+                    query.LocationType.Latitude.HasValue && query.LocationType.Longitude.HasValue)
+                {
+                    // Radians=(Miles/3959) Radians=(Km/6371)
+                    var radians = query.LocationType.Radius / 6371 ?? .1 / 6371;
+                    return new GeoWithin
+                    {
+                        CenterSphere = new CenterSphere
+                        {
+                            Center = new Point(query.LocationType.Latitude.Value, query.LocationType.Longitude.Value),
+                            Radius = radians,
+                        },
+                    };
+                }
 
+                // Bounding Box (TODO: Add Validation Rules)
+                if (string.Equals(query.LocationType.TypeId, "box", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (query.LocationType?.BoundingBox?.LowerLeftLatitude != null
+                        && query.LocationType?.BoundingBox?.LowerLeftLongitude != null
+                        && query.LocationType?.BoundingBox?.UpperRightLatitude != null
+                        && query.LocationType?.BoundingBox?.UpperRightLongitude != null)
+                    {
+                        var lowerLeftLatitude = query.LocationType.BoundingBox.LowerLeftLatitude.Value;
+                        var lowerLeftLongitude = query.LocationType.BoundingBox.LowerLeftLongitude.Value;
+                        var upperRightLatitude = query.LocationType.BoundingBox.UpperRightLatitude.Value;
+                        var upperRightLongitude = query.LocationType.BoundingBox.UpperRightLongitude.Value;
 
-            //if (query?.LocationType != null)
-            //{
-            //    // Radius
-            //    if (string.Equals(query.LocationType.TypeId, "radius", StringComparison.OrdinalIgnoreCase) && query.LocationType.Latitude.HasValue && query.LocationType.Longitude.HasValue)
-            //    {
-            //        // Radians=(Miles/3959) Radians=(Km/6371)
-            //        var radians = query.LocationType.Radius / 6371 ?? .1 / 6371;
-            //        return new GeoWithin
-            //        {
-            //            CenterSphere = new CenterSphere
-            //            {
-            //                Center = new Point(query.LocationType.Latitude.Value, query.LocationType.Longitude.Value),
-            //                Radius = radians,
-            //            },
-            //        };
-            //    }
+                        return new GeoWithin
+                        {
+                            Box = new Box
+                            {
+                                LowerLeft = new Point(lowerLeftLatitude, lowerLeftLongitude),
+                                UpperRight = new Point(upperRightLatitude, upperRightLongitude),
+                            },
+                        };
+                    }
+                }
+            }
 
-            //    // Bounding Box (TODO: Add Validation Rules)
-            //    if (string.Equals(query.LocationType.TypeId, "box", StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        if (query.LocationType?.BoundingBox?.LowerLeftLatitude != null
-            //            && query.LocationType?.BoundingBox?.LowerLeftLongitude != null
-            //            && query.LocationType?.BoundingBox?.UpperRightLatitude != null
-            //            && query.LocationType?.BoundingBox?.UpperRightLongitude != null)
-            //        {
-            //            var lowerLeftLatitude = query.LocationType.BoundingBox.LowerLeftLatitude.Value;
-            //            var lowerLeftLongitude = query.LocationType.BoundingBox.LowerLeftLongitude.Value;
-            //            var upperRightLatitude = query.LocationType.BoundingBox.UpperRightLatitude.Value;
-            //            var upperRightLongitude = query.LocationType.BoundingBox.UpperRightLongitude.Value;
-
-            //            return new GeoWithin
-            //            {
-            //                Box = new Box
-            //                {
-            //                    LowerLeft = new Point(lowerLeftLatitude, lowerLeftLongitude),
-            //                    UpperRight = new Point(upperRightLatitude, upperRightLongitude),
-            //                },
-            //            };
-            //        }
-            //    }
-        //    //}
-
-        //    return null;
-        //}
+            return null;
+        }
     }
 }

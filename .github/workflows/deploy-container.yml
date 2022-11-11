@@ -2,7 +2,7 @@ name: Deploy Linux Container
 env:
   DOCKER_REPOSITORY: stuartshay/navigator-attractions-api
   DOCKER_REPOSITORY_IMAGE: stuartshay/navigator-attractions-api
-  DOCKER_IMAGE_TAG: 6.0.1.${{ github.run_number }}
+  DOCKER_IMAGE_TAG: 7.0.1.${{ github.run_number }}
   BUILD_NUMBER: ${{ github.run_number }}
   DOCKER_FILE: src/NavigatorAttractions.WebAPI/Dockerfile
   BRANCH_NAME: '${{ github.ref_name }}'
@@ -29,10 +29,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup dotnet 6.0.x
+      - name: Setup dotnet 7.0.x
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.0.x
           include-prerelease: true
 
       - name: Install dependencies

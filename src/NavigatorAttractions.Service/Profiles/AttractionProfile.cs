@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using NavigatorAttractions.Data.Entities.Attractions;
+using NavigatorAttractions.Data.Entities.Attractions.References;
 using NavigatorAttractions.Service.Models.Attractions;
+using NavigatorAttractions.Service.Models.Attractions.Reference;
 
 namespace NavigatorAttractions.Service.Profiles
 {
@@ -66,26 +68,27 @@ namespace NavigatorAttractions.Service.Profiles
             //CreateMap<Marker, MarkerModel>();
             //CreateMap<Point, PointModel>();
 
-            //CreateMap<Reference, ReferenceModel>()
-            //         .Include<Book, BookModel>()
-            //         .Include<DataSource, DataSourceModel>()
-            //         .Include<Website, WebsiteModel>()
-            //         .Include<Wikipedia, WikipediaModel>()
-            //         .ForMember(m => m.Style, options => options.Ignore());
 
-            //CreateMap<ReferenceModel, Reference>();
+            CreateMap<Reference, ReferenceModel>()
+                     .Include<Book, BookModel>()
+                     .Include<DataSource, DataSourceModel>()
+                     .Include<Website, WebsiteModel>()
+                     .Include<Wikipedia, WikipediaModel>()
+                     .ForMember(m => m.Style, options => options.Ignore());
 
-            //CreateMap<Book, BookModel>();
-            //CreateMap<BookModel, Book>();
+            CreateMap<ReferenceModel, Reference>();
 
-            //CreateMap<DataSource, DataSourceModel>();
-            //CreateMap<DataSourceModel, DataSource>();
+            CreateMap<Book, BookModel>();
+            CreateMap<BookModel, Book>();
 
-            //CreateMap<Website, WebsiteModel>();
-            //CreateMap<WebsiteModel, Website>();
+            CreateMap<DataSource, DataSourceModel>();
+            CreateMap<DataSourceModel, DataSource>();
 
-            //CreateMap<Wikipedia, WikipediaModel>();
-            //CreateMap<WikipediaModel, Wikipedia>();
+            CreateMap<Website, WebsiteModel>();
+            CreateMap<WebsiteModel, Website>();
+
+            CreateMap<Wikipedia, WikipediaModel>();
+            CreateMap<WikipediaModel, Wikipedia>();
         }
     }
 }

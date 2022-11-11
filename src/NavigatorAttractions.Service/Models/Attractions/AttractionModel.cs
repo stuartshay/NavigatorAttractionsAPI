@@ -36,7 +36,7 @@
 
         //public InventoryModel Inventory { get; set; }
 
-        //public AttractionPhotoModel Photo { get; set; }
+        public AttractionPhotoModel Photo { get; set; }
 
         //public LocModel loc { get; set; }
 

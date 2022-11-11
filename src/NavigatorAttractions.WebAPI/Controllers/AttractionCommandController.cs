@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using NavigatorAttractions.Data.Results;
+using NavigatorAttractions.Service.Builders;
 using NavigatorAttractions.Service.Models.Attractions;
 using NavigatorAttractions.Service.Services.Interface;
 using NavigatorAttractions.WebAPI.Constants;
@@ -11,7 +12,6 @@ namespace NavigatorAttractions.WebAPI.Controllers
     /// Attraction Controller.
     /// </summary>
     [Route(RouteConstants.AttractionRoute)]
-    //[EnableCors("AllowAll")]
     public class AttractionCommandController : ControllerBase
     {
         private readonly IAttractionService _attractionService;
@@ -49,29 +49,28 @@ namespace NavigatorAttractions.WebAPI.Controllers
             if (photo == null)
                 return BadRequest();
 
-            //var photoResult = PhotoHelpers.BuildPhotoModel(photo, "t");
-            //var photoModel = new AttractionPhotoModel
-            //{
-            //    Id = photo.Id,
-            //    PhotoId = photo.PhotoId,
-            //    Title = photo.Title,
-            //    Height = photoResult.Height,
-            //    Width = photoResult.Width,
-            //    Url = photoResult.Url,
-            //};
+            var photoResult = PhotoHelpers.BuildPhotoModel(photo, "t");
+            var photoModel = new AttractionPhotoModel
+            {
+                Id = photo.Id,
+                PhotoId = photo.PhotoId,
+                Title = photo.Title,
+                Height = photoResult.Height,
+                Width = photoResult.Width,
+                Url = photoResult.Url,
+            };
 
-            //var patchAttractionPhoto = new JsonPatchDocument<AttractionModel>();
-            //patchAttractionPhoto.Replace<AttractionPhotoModel>(o => o.Photo, photoModel);
-            //patchAttractionPhoto.ApplyTo(attraction);
+            var patchAttractionPhoto = new JsonPatchDocument<AttractionModel>();
+            patchAttractionPhoto.Replace<AttractionPhotoModel>(o => o.Photo, photoModel);
+            patchAttractionPhoto.ApplyTo(attraction);
 
-            //var result = await _attractionService.UpdateAttraction(attraction);
-            //if (result.Status == ResultConstants.ExceptionStatus)
-            //{
-            //    return UnprocessableEntity(result.Status);
-            //}
+            var result = await _attractionService.UpdateAttraction(attraction);
+            if (result.Status == ResultConstants.ExceptionStatus)
+            {
+                return UnprocessableEntity(result.Status);
+            }
 
-            //return Ok(result.Entity);
-            return Ok();
+            return Ok(result.Entity);
         }
 
         /// <summary>

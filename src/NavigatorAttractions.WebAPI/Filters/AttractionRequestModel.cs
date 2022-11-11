@@ -60,9 +60,9 @@ namespace NavigatorAttractions.WebAPI.Filters
         /// </summary>
         public ReferenceType? ReferenceType { get; set; }
 
-        ///// <summary>
-        ///// Map Location Filter.
-        ///// </summary>
-        //public LocationType LocationType { get; set; }
+        /// <summary>
+        /// Map Location Filter.
+        /// </summary>
+        public LocationType LocationType { get; set; }
     }
 }
