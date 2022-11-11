@@ -101,6 +101,7 @@ void SetupMappings()
     {
         cfg.AddProfile(new AttractionProfile());
         //cfg.AddProfile(new MapProfile());
+        cfg.AddProfile(new PhotoProfile());
         cfg.AddProfile(new ReferenceTypesProfile());
     }).CreateMapper());
 }
