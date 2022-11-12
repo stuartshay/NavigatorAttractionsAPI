@@ -32,6 +32,7 @@ RUN dotnet build "NavigatorAttractions.WebAPI.csproj" -c Release -o /app/build
 FROM build AS publish
 ARG BUILD_NUMBER
 #RUN setversion 7.0.1.${BUILD_NUMBER}
+RUN setversion 7.0.1.0
 RUN dotnet publish "NavigatorAttractions.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 
