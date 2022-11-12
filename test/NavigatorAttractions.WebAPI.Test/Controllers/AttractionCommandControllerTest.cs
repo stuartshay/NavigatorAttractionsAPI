@@ -19,37 +19,37 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
         [Trait("Category", "Unit")]
         public async Task Update_Primary_Photo_Returns_Success()
         {
-            //var dataSet = AttractionDataSet.GetAttractionModel();
-            //var dataSetPhoto = PhotoDataSet.GetPhotoModel();
-            //var resultSet = new RepositoryActionResult<AttractionModel>(dataSet, ResultConstants.UpsertedStatus);
+            var dataSet = AttractionDataSet.GetAttractionModel();
+            var dataSetPhoto = PhotoDataSet.GetPhotoModel();
+            var resultSet = new RepositoryActionResult<AttractionModel>(dataSet, ResultConstants.UpsertedStatus);
 
-            //var attractionService = new Mock<IAttractionService>();
-            //attractionService.Setup(b => b.GetAttraction(It.IsAny<string>()))
-            //    .ReturnsAsync(dataSet);
-            //attractionService.Setup(b => b.UpdateAttraction(dataSet))
-            //    .ReturnsAsync(resultSet);
+            var attractionService = new Mock<IAttractionService>();
+            attractionService.Setup(b => b.GetAttraction(It.IsAny<string>()))
+                .ReturnsAsync(dataSet);
+            attractionService.Setup(b => b.UpdateAttraction(dataSet))
+                .ReturnsAsync(resultSet);
 
-            //var photoService = new Mock<IPhotoService>();
-            //photoService.Setup(b => b.GetPhoto(It.IsAny<string>()))
-            //    .ReturnsAsync(dataSetPhoto);
+            var photoService = new Mock<IPhotoService>();
+            photoService.Setup(b => b.GetPhoto(It.IsAny<string>()))
+                .ReturnsAsync(dataSetPhoto);
 
-            //var controller = GetAttractionCommandController(attractionService.Object, photoService.Object);
+            var controller = GetAttractionCommandController(attractionService.Object, photoService.Object);
 
-            //// Act
-            //var sut = await controller.Put(It.IsAny<string>(), It.IsAny<string>());
+            // Act
+            var sut = await controller.Put(It.IsAny<string>(), It.IsAny<string>());
 
-            //// Assert
-            //Assert.NotNull(sut);
-            //Assert.IsType<OkObjectResult>(sut);
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<OkObjectResult>(sut);
 
-            //var objectResult = sut as OkObjectResult;
-            //Assert.NotNull(objectResult);
-            //Assert.True(objectResult.StatusCode == 200);
-            //Assert.IsType<AttractionModel>(objectResult.Value);
+            var objectResult = sut as OkObjectResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 200);
+            Assert.IsType<AttractionModel>(objectResult.Value);
 
-            //var result = objectResult.Value as AttractionModel;
-            //Assert.NotNull(result);
-            //Assert.Equal(dataSet.Id, result.Id);
+            var result = objectResult.Value as AttractionModel;
+            Assert.NotNull(result);
+            Assert.Equal(dataSet.Id, result.Id);
         }
 
         [Fact]

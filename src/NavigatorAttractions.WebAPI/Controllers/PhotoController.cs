@@ -58,40 +58,40 @@ namespace NavigatorAttractions.WebAPI.Controllers
             return Ok(photo);
         }
 
-        ///// <summary>
-        /////  Paging List of Photos.
-        ///// </summary>
-        ///// <param name="id">Attraction Id.</param>
-        ///// <param name="limit">Records per Page.</param>
-        ///// <param name="page">Page Number.</param>
-        ///// <param name="query"></param>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[Route("{id}/{limit:int}/{page:int}")]
-        //[ProducesResponseType(typeof(PagedResultModel<PhotoGalleryModel>), 200)]
-        //[Produces("application/json", Type = typeof(PagedResultModel<PhotoGalleryModel>))]
-        //public async Task<IActionResult> Get(string id, int limit, int page, [FromQuery] PhotoRequestModel query)
-        //{
-        //    var attraction = await _attractionService.GetAttraction(id);
-        //    if (attraction == null)
-        //        return NotFound();
+        /// <summary>
+        ///  Paging List of Photos.
+        /// </summary>
+        /// <param name="id">Attraction Id.</param>
+        /// <param name="limit">Records per Page.</param>
+        /// <param name="page">Page Number.</param>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}/{limit:int}/{page:int}")]
+        [ProducesResponseType(typeof(PagedResultModel<PhotoGalleryModel>), 200)]
+        [Produces("application/json", Type = typeof(PagedResultModel<PhotoGalleryModel>))]
+        public async Task<IActionResult> Get(string id, int limit, int page, [FromQuery] PhotoRequestModel query)
+        {
+            var attraction = await _attractionService.GetAttraction(id);
+            if (attraction == null)
+                return NotFound();
 
-        //    var tags = attraction.MachineTags?.Select(x => x.Tag);
-        //    if (tags == null)
-        //        return NotFound();
+            var tags = attraction.MachineTags?.Select(x => x.Tag);
+            if (tags == null)
+                return NotFound();
 
-        //    var photoRequest = new PhotoRequest
-        //    {
-        //        PageSize = limit,
-        //        Page = page,
-        //        SortColumn = string.Empty,
-        //        Tags = tags.ToArray(),
-        //        PhotoSize = query?.PhotoSize ?? "m",
-        //    };
+            var photoRequest = new PhotoRequest
+            {
+                PageSize = limit,
+                Page = page,
+                SortColumn = string.Empty,
+                Tags = tags.ToArray(),
+                PhotoSize = query?.PhotoSize ?? "m",
+            };
 
-        //    var results = await _photoService.GetPhotos(photoRequest);
-        //    return Ok(results);
-        //}
+            var results = await _photoService.GetPhotos(photoRequest);
+            return Ok(results);
+        }
 
         /// <summary>
         /// Get Photo Status.

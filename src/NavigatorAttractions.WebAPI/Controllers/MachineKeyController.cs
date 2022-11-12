@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NavigatorAttractions.Service.Models.MachineKeys;
 using NavigatorAttractions.Service.Services.Interface;
 
 namespace NavigatorAttractions.WebAPI.Controllers
@@ -54,38 +55,38 @@ namespace NavigatorAttractions.WebAPI.Controllers
             return Ok(results);
         }
 
-    //    /// <summary>
-    //    /// Validate Machine Key.
-    //    /// </summary>
-    //    /// <param name="k">Machine Key.</param>
-    //    /// <returns>Key Validation List.</returns>
-    //    [HttpGet]
-    //    [Route("Validation")]
-    //    [ProducesResponseType(typeof(List<MachineKeyResultModel>), 200)]
-    //    [Produces("application/json", Type = typeof(List<MachineKeyResultModel>))]
-    //    public async Task<IActionResult> GetKeysValidation([FromQuery] string[] k)
-    //    {
-    //        if (k == null)
-    //        {
-    //            return BadRequest();
-    //        }
+        /// <summary>
+        /// Validate Machine Key.
+        /// </summary>
+        /// <param name="k">Machine Key.</param>
+        /// <returns>Key Validation List.</returns>
+        [HttpGet]
+        [Route("Validation")]
+        [ProducesResponseType(typeof(List<MachineKeyResultModel>), 200)]
+        [Produces("application/json", Type = typeof(List<MachineKeyResultModel>))]
+        public async Task<IActionResult> GetKeysValidation([FromQuery] string[] k)
+        {
+            if (k == null)
+            {
+                return BadRequest();
+            }
 
-    //        var results = new List<MachineKeyResultModel>();
-    //        foreach (var key in k)
-    //        {
-    //            if (!string.IsNullOrEmpty(key))
-    //            {
-    //                var exists = await _attractionService.ValidateMachineKey(key.Trim());
-    //                results.Add(
-    //                    new MachineKeyResultModel
-    //                    {
-    //                        MachineKey = key.ToLower(),
-    //                        Result = exists,
-    //                    });
-    //            }
-    //        }
+            var results = new List<MachineKeyResultModel>();
+            foreach (var key in k)
+            {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    var exists = await _attractionService.ValidateMachineKey(key.Trim());
+                    results.Add(
+                        new MachineKeyResultModel
+                        {
+                            MachineKey = key.ToLower(),
+                            Result = exists,
+                        });
+                }
+            }
 
-    //        return Ok(results);
-    //    }
+            return Ok(results);
+        }
     }
 }
