@@ -44,6 +44,11 @@ namespace NavigatorAttractions.WebAPI.Controllers
         [Produces("application/json", Type = typeof(AttractionModel))]
         public async Task<IActionResult> Get(string id = "533cddaf5c9596ef08143d56")
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest();
+            }
+
             var attraction = await _attractionService.GetAttraction(id);
             if (attraction == null)
             {
@@ -57,6 +62,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
                 attraction.Photo.Url = !string.IsNullOrEmpty(attraction?.Photo?.Url) ? attraction.Photo.Url.Replace("t.jpg", "m.jpg") : null;
             }
 
+            _logger.LogInformation("{@attraction}", attraction);
             return Ok(attraction);
         }
 

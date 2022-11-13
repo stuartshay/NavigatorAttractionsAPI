@@ -2,13 +2,13 @@
 {
     public class PhotoGalleryModel : IPhotoModel
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         public long PhotoId { get; set; }
 
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         public int Width { get; set; }
 
@@ -20,7 +20,7 @@
 
         // public string OwnerName { get { return "SPS101"; } }
 
-        public string RealName => "Stuart Shay";
+        public string? RealName => "Stuart Shay";
 
         public DateTime DateUploaded { get; set; }
 

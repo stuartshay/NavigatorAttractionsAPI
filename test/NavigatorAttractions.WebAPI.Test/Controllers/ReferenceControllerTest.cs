@@ -64,7 +64,7 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             var controller = GetReferenceController();
 
             // Act
-            var sut = await controller.Get(null);
+            var sut = await controller.Get(string.Empty);
 
             // Assert
             Assert.NotNull(sut);

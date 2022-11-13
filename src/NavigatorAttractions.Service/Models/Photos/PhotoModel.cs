@@ -5,11 +5,11 @@ namespace NavigatorAttractions.Service.Models.Photos
 {
     public class PhotoModel
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         public long PhotoId { get; set; }
 
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         public DateTime DateUploaded { get; set; }
 
@@ -25,19 +25,19 @@ namespace NavigatorAttractions.Service.Models.Photos
 
         public string RealName => "Stuart Shay";
 
-        public List<MachineTag> MachineTags { get; set; }
+        public List<MachineTag>? MachineTags { get; set; }
 
-        public Permission Permission { get; set; }
+        public Permission? Permission { get; set; }
 
-        public List<PhotoSize> PhotoSizes { get; set; }
+        public List<PhotoSize>? PhotoSizes { get; set; }
 
-        public AuthorModel Author { get; set; }
+        public AuthorModel? Author { get; set; }
 
-        public Geo Geo { get; set; }
+        public Geo? Geo { get; set; }
 
-        public Exif Exif { get; set; }
+        public Exif? Exif { get; set; }
 
-        public List<DisplayCategoryModel> DisplayCategories { get; set; }
+        public List<DisplayCategoryModel>? DisplayCategories { get; set; }
 
         public override string ToString()
         {

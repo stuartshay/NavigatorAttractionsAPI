@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using NavigatorAttractions.Data.Entities.Attractions;
+using NavigatorAttractions.Data.Entities.Attractions.Maps;
 using NavigatorAttractions.Data.Entities.Attractions.References;
 using NavigatorAttractions.Service.Models.Attractions;
+using NavigatorAttractions.Service.Models.Attractions.Maps;
 using NavigatorAttractions.Service.Models.Attractions.Reference;
 
 namespace NavigatorAttractions.Service.Profiles
@@ -25,16 +27,8 @@ namespace NavigatorAttractions.Service.Profiles
             //Model to Entity
             CreateMap<DisplayDateModel, DisplayDate>();
 
-
-
-
-
-
-
             //CreateMap<AttractionPhoto, AttractionPhotoModel>();
             //CreateMap<AttractionPhotoModel, AttractionPhoto>();
-
-
 
             //CreateMap<Photo, AttractionPhotoModel>()
             //    .ForMember(m => m.Url, options => options.Ignore())
@@ -53,21 +47,18 @@ namespace NavigatorAttractions.Service.Profiles
             //    .ForMember(m => m.Exif, options => options.Ignore())
             //    .ForMember(m => m.DisplayCategories, options => options.Ignore());
 
-            //CreateMap<Inventory, InventoryModel>();
-            //CreateMap<InventoryModel, Inventory>();
+            CreateMap<Inventory, InventoryModel>();
+            CreateMap<InventoryModel, Inventory>();
 
-            //CreateMap<Inscription, InscriptionModel>();
-            //CreateMap<InscriptionModel, Inscription>();
-
-
+            CreateMap<Inscription, InscriptionModel>();
+            CreateMap<InscriptionModel, Inscription>();
 
             //CreateMap<loc, LocModel>();
             //CreateMap<LocModel, loc>();
 
-            //CreateMap<Map, MapModel>();
-            //CreateMap<Marker, MarkerModel>();
-            //CreateMap<Point, PointModel>();
-
+            CreateMap<Map, MapModel>();
+            CreateMap<Marker, MarkerModel>();
+            CreateMap<Point, PointModel>();
 
             CreateMap<Reference, ReferenceModel>()
                      .Include<Book, BookModel>()

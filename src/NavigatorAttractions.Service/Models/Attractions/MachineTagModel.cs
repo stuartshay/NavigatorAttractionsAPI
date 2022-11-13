@@ -2,6 +2,6 @@
 {
     public class MachineTagModel
     {
-        public string Tag { get; set; }
+        public string? Tag { get; set; }
     }
 }

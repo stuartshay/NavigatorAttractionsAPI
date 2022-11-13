@@ -27,7 +27,7 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             var controller = GetAttractionController(attractionService.Object);
 
             // Act
-            var sut = await controller.Get(It.IsAny<string>());
+            var sut = await controller.Get(dataSet.Id);
 
             // Assert
             Assert.NotNull(sut);
@@ -43,10 +43,30 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             Assert.Equal(dataSet.Id, result.Id);
         }
 
-        [Fact]
+        [Fact()]
+        [Trait("Category", "Unit")]
+        public async Task Get_Attraction_Returns_BadRequet()
+        {
+            var controller = GetAttractionController();
+
+            // Act
+            var sut = await controller.Get(string.Empty);
+
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<BadRequestResult>(sut);
+
+            var objectResult = sut as BadRequestResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 400);
+        }
+
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_Attraction_Returns_NotFound()
         {
+            var dataSet = AttractionDataSet.GetAttractionModel();
+
             var attractionService = new Mock<IAttractionService>();
             attractionService.Setup(b => b.GetAttraction(It.IsAny<string>()))
                 .Returns(Task.FromResult((AttractionModel)null));
@@ -54,7 +74,7 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             var controller = GetAttractionController(attractionService.Object);
 
             // Act
-            var sut = await controller.Get(It.IsAny<string>());
+            var sut = await controller.Get(dataSet.Id);
 
             // Assert
             Assert.NotNull(sut);

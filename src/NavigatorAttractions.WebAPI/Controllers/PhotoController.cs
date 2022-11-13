@@ -76,6 +76,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
             if (attraction == null)
                 return NotFound();
 
+
             var tags = attraction.MachineTags?.Select(x => x.Tag);
             if (tags == null)
                 return NotFound();

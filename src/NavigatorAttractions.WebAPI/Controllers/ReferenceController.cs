@@ -35,7 +35,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
         [Produces("application/json", Type = typeof(ReferenceTypeModel))]
         public async Task<IActionResult> Get(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return BadRequest();
             }

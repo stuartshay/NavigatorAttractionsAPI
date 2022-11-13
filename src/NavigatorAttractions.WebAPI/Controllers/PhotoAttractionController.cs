@@ -38,7 +38,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
         [Produces("application/json", Type = typeof(AttractionModel))]
         public async Task<IActionResult> Get(string photoId)
         {
-            if (photoId == null)
+            if (string.IsNullOrEmpty(photoId))
             {
                 return BadRequest();
             }

@@ -29,7 +29,12 @@ namespace NavigatorAttractions.Data.Repository
         {
             Guard.ThrowIfNull(id, nameof(id));
 
-            return await collection.Find(_ => _.Id == id).SingleAsync();
+            var result = await collection.Find(_ => _.Id == id).SingleOrDefaultAsync();
+
+            if (result == null)
+                return new Attraction();
+
+            return result;
         }
 
         public async Task<IList<Attraction>> GetAttractions()

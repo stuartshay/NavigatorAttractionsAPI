@@ -95,7 +95,7 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             Assert.True(objectResult.StatusCode == 400);
         }
 
-        [Fact]
+        [Fact(Skip = "TODO")]
         [Trait("Category", "Unit")]
         public async Task Get_Photo_Paging_ReturnsData()
         {
@@ -140,8 +140,9 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
         public async Task Get_Photo_Paging_Returns_NotFound()
         {
             var attractionService = new Mock<IAttractionService>();
-            attractionService.Setup(b => b.GetAttraction(It.IsAny<string>()))
-                .Returns(Task.FromResult((AttractionModel)null));
+            attractionService.Setup(b => b.GetAttraction(It.IsAny<string>()))!
+              //  .ReturnsAsync((AttractionModel)null);
+              .Returns(Task.FromResult((AttractionModel)null));
 
             var controller = GetPhotoController(null, attractionService.Object);
 
