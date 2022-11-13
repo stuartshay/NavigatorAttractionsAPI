@@ -45,7 +45,7 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
 
         [Fact()]
         [Trait("Category", "Unit")]
-        public async Task Get_Attraction_Returns_BadRequet()
+        public async Task Get_Attraction_Returns_BadRequest()
         {
             var controller = GetAttractionController();
 

@@ -104,7 +104,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
                 KeywordMatch = query?.KeywordsMatch?.Trim().ToLower() == "all" ? "all" : null,
                 KeywordList = query?.Keywords?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList(),
                 FieldsList = query?.FieldsList?.RemoveWhitespace().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList(),
-                ReferenceId = query.ReferenceType?.TypeId != null ? query.ReferenceType.TypeId : null,
+                //ReferenceId = query.ReferenceType?.TypeId != null ? query.ReferenceType.TypeId : null,
                 Search = query?.Search,
                 Location = location,
             };

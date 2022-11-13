@@ -152,10 +152,12 @@ void SetupApp()
         app.UseElasticApm(configuration);
     }
 
+
+    app.UseRouting();
+
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.UseRouting();
     app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllers();
