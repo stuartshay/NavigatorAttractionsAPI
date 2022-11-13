@@ -5,7 +5,7 @@ using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Test.Data.Reference;
 using Xunit;
 
-namespace NavigatorAttractions.Service.Test.Mappings
+namespace NavigatorAttractions.Service.Test.Mappings.Attractions
 {
     public class ReferenceMappingTest
     {
