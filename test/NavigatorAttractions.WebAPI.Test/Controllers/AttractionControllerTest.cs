@@ -130,75 +130,75 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             Assert.True(objectResult.StatusCode == 200);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_Attraction_Paging_Filter_Radius()
         {
-            //int limit = 100;
-            //int page = 2;
-            //int total = 450;
+            int limit = 100;
+            int page = 2;
+            int total = 450;
 
-            //var request = new AttractionRequestModel
-            //{
-            //    LocationType = new LocationType { TypeId = "radius", Latitude = 40.782222, Longitude = -73.965278, Radius = .5, },
-            //};
+            var request = new AttractionRequestModel
+            {
+                LocationType = new LocationType { TypeId = "radius", Latitude = 40.782222, Longitude = -73.965278, Radius = .5, },
+            };
 
-            //var query = new AttractionRequest { Page = page, PageSize = limit, PhotoSize = "n" };
+            var query = new AttractionRequest { Page = page, PageSize = limit, PhotoSize = "n" };
 
-            //var dataSet = AttractionDataSet.GetAttractionModelPagedResult(page, limit, total);
+            var dataSet = AttractionDataSet.GetAttractionModelPagedResult(page, limit, total);
 
-            //var attractionService = new Mock<IAttractionService>();
-            //attractionService.Setup(b => b.GetAttractions(query))
-            //    .ReturnsAsync(dataSet);
+            var attractionService = new Mock<IAttractionService>();
+            attractionService.Setup(b => b.GetAttractions(query))
+                .ReturnsAsync(dataSet);
 
-            //var controller = GetAttractionController(attractionService.Object);
+            var controller = GetAttractionController(attractionService.Object);
 
-            //// Act
-            //var sut = await controller.GetList(request, limit, page);
+            // Act
+            var sut = await controller.GetList(request, limit, page);
 
-            //// Assert
-            //Assert.NotNull(sut);
-            //Assert.IsType<OkObjectResult>(sut);
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<OkObjectResult>(sut);
 
-            //var objectResult = sut as OkObjectResult;
-            //Assert.NotNull(objectResult);
-            //Assert.True(objectResult.StatusCode == 200);
+            var objectResult = sut as OkObjectResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 200);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_Attraction_Paging_Filter_Bounding_Box()
         {
-            //int limit = 100;
-            //int page = 2;
-            //int total = 450;
+            int limit = 100;
+            int page = 2;
+            int total = 450;
 
-            //var boundingBox = new BoundingBox { LowerLeftLatitude = 1, LowerLeftLongitude = 1, UpperRightLatitude = 1, UpperRightLongitude = 1 };
-            //var request = new AttractionRequestModel
-            //{
-            //    LocationType = new LocationType { TypeId = "box", BoundingBox = boundingBox },
-            //};
+            var boundingBox = new BoundingBox { LowerLeftLatitude = 1, LowerLeftLongitude = 1, UpperRightLatitude = 1, UpperRightLongitude = 1 };
+            var request = new AttractionRequestModel
+            {
+                LocationType = new LocationType { TypeId = "box", BoundingBox = boundingBox },
+            };
 
-            //var query = new AttractionRequest { Page = page, PageSize = limit, PhotoSize = "n" };
+            var query = new AttractionRequest { Page = page, PageSize = limit, PhotoSize = "n" };
 
-            //var dataSet = AttractionDataSet.GetAttractionModelPagedResult(page, limit, total);
+            var dataSet = AttractionDataSet.GetAttractionModelPagedResult(page, limit, total);
 
-            //var attractionService = new Mock<IAttractionService>();
-            //attractionService.Setup(b => b.GetAttractions(query))
-            //    .ReturnsAsync(dataSet);
+            var attractionService = new Mock<IAttractionService>();
+            attractionService.Setup(b => b.GetAttractions(query))
+                .ReturnsAsync(dataSet);
 
-            //var controller = GetAttractionController(attractionService.Object);
+            var controller = GetAttractionController(attractionService.Object);
 
-            //// Act
-            //var sut = await controller.GetList(request, limit, page);
+            // Act
+            var sut = await controller.GetList(request, limit, page);
 
-            //// Assert
-            //Assert.NotNull(sut);
-            //Assert.IsType<OkObjectResult>(sut);
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<OkObjectResult>(sut);
 
-            //var objectResult = sut as OkObjectResult;
-            //Assert.NotNull(objectResult);
-            //Assert.True(objectResult.StatusCode == 200);
+            var objectResult = sut as OkObjectResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 200);
         }
 
         private AttractionController GetAttractionController(IAttractionService? attractionService = null)
