@@ -2,7 +2,7 @@ name: Deploy Linux Container
 env:
   DOCKER_REPOSITORY: stuartshay/navigator-attractions-api
   DOCKER_REPOSITORY_IMAGE: stuartshay/navigator-attractions-api
-  DOCKER_IMAGE_TAG: 6.0.1.${{ github.run_number }}
+  DOCKER_IMAGE_TAG: 7.0.1.${{ github.run_number }}
   BUILD_NUMBER: ${{ github.run_number }}
   DOCKER_FILE: src/NavigatorAttractions.WebAPI/Dockerfile
   BRANCH_NAME: '${{ github.ref_name }}'
@@ -29,14 +29,39 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup dotnet 6.0.x
+      - name: Setup dotnet 7.0.x
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.0.x
           include-prerelease: true
 
       - name: Install dependencies
         run: dotnet restore
+
+      - name: Build
+        run: dotnet build NavigatorAttractions.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test NavigatorAttractions.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+      - name: Code Coverage Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: coverage/**/coverage.cobertura.xml
+          badge: true
+          fail_below_min: true
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '10 80'
+
+      - name: Upload Coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-artifact
+          path: coverage/**/coverage.cobertura.xml
 
       - name: NavigatorAttractions.Service.Test - Unit Test
         uses: zyborg/dotnet-tests-report@v1
@@ -150,8 +175,6 @@ jobs:
       url: ${{ steps.deploy.outputs.url }}
 
     steps:
-      - uses: rlespinasse/github-slug-action@v3.x
-
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:

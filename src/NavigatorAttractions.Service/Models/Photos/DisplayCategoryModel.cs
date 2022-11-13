@@ -2,6 +2,6 @@
 {
     public class DisplayCategoryModel
     {
-        public string Category { get; set; }
+        public string? Category { get; set; }
     }
 }

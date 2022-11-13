@@ -13,6 +13,7 @@ using NavigatorAttractions.Data.Repository;
 using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
 using NavigatorAttractions.Service.Services.Interface;
+using NavigatorAttractions.WebAPI.Extentsions;
 using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
@@ -49,7 +50,13 @@ void SetupLogger()
 
 void SetupServices()
 {
-    services.AddControllers();
+    services.AddControllers().AddNewtonsoftJson();
+
+    //services.AddControllers(options =>
+    //{
+    //    options.InputFormatters.Insert(0, MyJPIF.GetJsonPatchInputFormatter());
+    //});
+
     services.AddEndpointsApiExplorer();
 
     // Swagger
@@ -80,6 +87,7 @@ void SetupServices()
 
         c.ExampleFilters();
         c.IncludeXmlComments(xmlFilePath);
+        c.DocumentFilter<JsonPatchDocumentFilter>();
     });
     services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
 
@@ -93,6 +101,8 @@ void SetupMappings()
     {
         cfg.AddProfile(new AttractionProfile());
         //cfg.AddProfile(new MapProfile());
+        cfg.AddProfile(new PhotoProfile());
+        cfg.AddProfile(new ReferenceTypesProfile());
     }).CreateMapper());
 }
 
@@ -102,9 +112,12 @@ void AddServices()
 
     services.AddSingleton<IAttractionRepository>(new AttractionRepository(config.ConnectionStrings.MongoNavigator));
     services.AddSingleton<IPhotoRepository>(new PhotoRepository(config.ConnectionStrings.MongoNavigator));
-    
+    services.AddSingleton<IReferenceTypeRepository>(new ReferenceTypeRepository(config.ConnectionStrings.MongoNavigator));
+
     services.AddScoped<IAttractionService, AttractionService>();
     services.AddScoped<IPhotoService, PhotoService>();
+    services.AddScoped<IReferenceService, ReferenceService>();
+
 }
 
 void AddHealthCheckServices()
@@ -139,10 +152,12 @@ void SetupApp()
         app.UseElasticApm(configuration);
     }
 
+
+    app.UseRouting();
+
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.UseRouting();
     app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllers();

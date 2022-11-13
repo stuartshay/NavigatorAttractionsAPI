@@ -3,8 +3,11 @@ using AutoMapper.Execution;
 using NavigatorAttractions.Core.Models;
 using NavigatorAttractions.Data.Entities.Photos;
 using NavigatorAttractions.Data.Enums;
+using NavigatorAttractions.Data.Filters;
 using NavigatorAttractions.Data.Interface;
+using NavigatorAttractions.Service.Builders;
 using NavigatorAttractions.Service.Models.Photos;
+using NavigatorAttractions.Service.Results;
 using NavigatorAttractions.Service.Services.Interface;
 
 namespace NavigatorAttractions.Service.Services
@@ -65,72 +68,72 @@ namespace NavigatorAttractions.Service.Services
             return _mapper.Map<List<Photo>, List<PhotoModel>>(result.ToList());
         }
 
-        //public async Task<IEnumerable<PhotoGalleryModel>> GetPhotos(string[] tags)
-        //{
-        //    var photos = new List<PhotoGalleryModel>();
+        public async Task<IEnumerable<PhotoGalleryModel>> GetPhotos(string[] tags)
+        {
+            var photos = new List<PhotoGalleryModel>();
 
-        //    var result = await _photoRepository.GetPhotos(tags);
-        //    foreach (var photo in result)
-        //    {
-        //        var p = new PhotoGalleryModel
-        //        {
-        //            PhotoId = photo.PhotoId,
-        //            Title = photo.Title,
-        //            Id = photo.Id,
-        //            Url = (from x in photo.PhotoSizes where x.Suffix == "t" select x.Url).FirstOrDefault(),
-        //            Width = (from x in photo.PhotoSizes where x.Suffix == "t" select x.Width).FirstOrDefault(),
-        //            Height = (from x in photo.PhotoSizes where x.Suffix == "t" select x.Height).FirstOrDefault(),
-        //        };
-        //        photos.Add(p);
-        //    }
+            var result = await _photoRepository.GetPhotos(tags);
+            foreach (var photo in result)
+            {
+                var p = new PhotoGalleryModel
+                {
+                    PhotoId = photo.PhotoId,
+                    Title = photo.Title,
+                    Id = photo.Id,
+                    Url = (from x in photo.PhotoSizes where x.Suffix == "t" select x.Url).FirstOrDefault(),
+                    Width = (from x in photo.PhotoSizes where x.Suffix == "t" select x.Width).FirstOrDefault(),
+                    Height = (from x in photo.PhotoSizes where x.Suffix == "t" select x.Height).FirstOrDefault(),
+                };
+                photos.Add(p);
+            }
 
-        //    return photos;
-        //}
+            return photos;
+        }
 
-        //public async Task<PagedResultModel<PhotoGalleryModel>> GetPhotos(PhotoRequest photoRequest)
-        //{
-        //    var results = await _photoRepository.GetPhotos(photoRequest, out var totalCount);
+        public async Task<PagedResultModel<PhotoGalleryModel>> GetPhotos(PhotoRequest photoRequest)
+        {
+            var results = await _photoRepository.GetPhotos(photoRequest, out var totalCount);
 
-        //    var photos = Mapper.Map<List<Photo>, List<PhotoModel>>(results.ToList())
-        //        .Select(p => (PhotoGalleryModel)PhotoHelpers.BuildPhotoModel(p, photoRequest.PhotoSize));
+            var photos = _mapper.Map<List<Photo>, List<PhotoModel>>(results.ToList())
+                .Select(p => (PhotoGalleryModel)PhotoHelpers.BuildPhotoModel(p, photoRequest.PhotoSize));
 
-        //    var resultList = new PagedResultModel<PhotoGalleryModel>()
-        //    {
-        //        Total = totalCount,
-        //        Page = photoRequest.Page,
-        //        Limit = photoRequest.PageSize,
-        //        Results = photos.ToList(),
-        //    };
+            var resultList = new PagedResultModel<PhotoGalleryModel>()
+            {
+                Total = totalCount,
+                Page = photoRequest.Page,
+                Limit = photoRequest.PageSize,
+                //Results = photos.ToList(),
+            };
 
-        //    return resultList;
-        //}
+            return resultList;
+        }
 
-        //public async Task<EntityResultModel<PhotoModel>> SaveAsync(PhotoModel item)
-        //{
-        //    var result = new EntityResultModel<PhotoModel>();
+        public async Task<EntityResultModel<PhotoModel>> SaveAsync(PhotoModel item)
+        {
+            var result = new EntityResultModel<PhotoModel>();
 
-        //    var validate = await ValidatePhotoStatus(item.PhotoId, item.LastUpdated);
-        //    if (validate == PhotoStatus.FOUND)
-        //    {
-        //        var entity = await _photoRepository.GetPhoto(item.PhotoId, null);
-        //        result = new EntityResultModel<PhotoModel>
-        //        {
-        //            Status = validate.ToString(),
-        //            Entity = Mapper.Map<Photo, PhotoModel>(entity),
-        //        };
-        //    }
-        //    else if (validate == PhotoStatus.NOT_FOUND || validate == PhotoStatus.UPDATE)
-        //    {
-        //        var entity = _photoRepository.Upsert(Mapper.Map<PhotoModel, Photo>(item)).Result;
-        //        result = new EntityResultModel<PhotoModel>
-        //        {
-        //            Status = validate.ToString(),
-        //            Entity = Mapper.Map<Photo, PhotoModel>(entity.Entity),
-        //        };
-        //    }
+            var validate = await ValidatePhotoStatus(item.PhotoId, item.LastUpdated);
+            if (validate == PhotoStatus.FOUND)
+            {
+                var entity = await _photoRepository.GetPhoto(item.PhotoId, null);
+                result = new EntityResultModel<PhotoModel>
+                {
+                    Status = validate.ToString(),
+                    Entity = _mapper.Map<Photo, PhotoModel>(entity),
+                };
+            }
+            else if (validate == PhotoStatus.NOT_FOUND || validate == PhotoStatus.UPDATE)
+            {
+                var entity = _photoRepository.Upsert(_mapper.Map<PhotoModel, Photo>(item)).Result;
+                result = new EntityResultModel<PhotoModel>
+                {
+                    Status = validate.ToString(),
+                    Entity = _mapper.Map<Photo, PhotoModel>(entity.Entity),
+                };
+            }
 
-        //    return result;
-        //}
+            return result;
+        }
 
         public async Task<PhotoStatus> ValidatePhotoStatus(long photoId, DateTime? lastUpdated)
         {

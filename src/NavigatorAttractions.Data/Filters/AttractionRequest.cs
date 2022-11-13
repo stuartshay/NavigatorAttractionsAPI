@@ -1,4 +1,6 @@
-﻿namespace NavigatorAttractions.Data.Filters
+﻿using NavigatorAttractions.Data.Filters.GeoRequest;
+
+namespace NavigatorAttractions.Data.Filters
 {
     public class AttractionRequest : RequestBase
     {
@@ -20,6 +22,6 @@
 
         public string? ReferenceId { get; set; }
 
-        //public GeoWithin Location { get; set; }
+        public GeoWithin? Location { get; set; }
     }
 }

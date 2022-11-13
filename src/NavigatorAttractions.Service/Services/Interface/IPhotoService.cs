@@ -1,5 +1,8 @@
-﻿using NavigatorAttractions.Data.Enums;
+﻿using NavigatorAttractions.Core.Models;
+using NavigatorAttractions.Data.Enums;
+using NavigatorAttractions.Data.Filters;
 using NavigatorAttractions.Service.Models.Photos;
+using NavigatorAttractions.Service.Results;
 
 namespace NavigatorAttractions.Service.Services.Interface
 {
@@ -17,11 +20,11 @@ namespace NavigatorAttractions.Service.Services.Interface
 
         Task<IEnumerable<PhotoModel>> GetPhotos();
 
-        //Task<IEnumerable<PhotoGalleryModel>> GetPhotos(string[] tags);
+        Task<IEnumerable<PhotoGalleryModel>> GetPhotos(string[] tags);
 
-        //Task<PagedResultModel<PhotoGalleryModel>> GetPhotos(PhotoRequest photoRequest);
+        Task<PagedResultModel<PhotoGalleryModel>> GetPhotos(PhotoRequest photoRequest);
 
-        //Task<EntityResultModel<PhotoModel>> SaveAsync(PhotoModel item);
+        Task<EntityResultModel<PhotoModel>> SaveAsync(PhotoModel item);
 
         Task<PhotoStatus> ValidatePhotoStatus(long photoId, DateTime? lastUpdated);
     }

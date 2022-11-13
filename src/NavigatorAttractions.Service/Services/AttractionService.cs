@@ -112,14 +112,23 @@ namespace NavigatorAttractions.Service.Services
             throw new NotImplementedException();
         }
 
-        public Task<IList<string>> GetMachineKeys()
+        public async Task<IList<string>> GetMachineKeys()
         {
-            throw new NotImplementedException();
+            var results = await _attractionRepository.GetMachineKeys();
+            return results;
         }
 
-        public Task<IList<string>> GetPredicates()
+        public async Task<IList<string>> GetPredicates()
         {
-            throw new NotImplementedException();
+            var list = new List<string>();
+            var results = await _attractionRepository.GetMachineKeys();
+            foreach (var result in results)
+            {
+                list.Add($"{result.Split('=')[0]}");
+            }
+
+            var values = (from x in list select x).Distinct().ToList();
+            return values;
         }
     }
 }
