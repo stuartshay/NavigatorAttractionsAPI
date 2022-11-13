@@ -4,9 +4,9 @@ namespace NavigatorAttractions.Service.Results
 {
     public class PhotoStatusResult
     {
-        public string PhotoId { get; set; }
+        public string? PhotoId { get; set; }
 
-        public string Status { get; set; }
+        public string? Status { get; set; }
     }
 
     public class PhotoCollectionStatusResult : IEnumerable<PhotoStatusResult>

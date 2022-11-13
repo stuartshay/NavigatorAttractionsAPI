@@ -24,8 +24,6 @@ ENV PATH="/root/.dotnet/tools:${PATH}"
 RUN dotnet tool install --global dotnet-setversion --version 2.5.0
 RUN dotnet tool list -g
 
-
-
 WORKDIR /src
 COPY ["NuGet.config", "."]
 COPY ["src/NavigatorAttractions.WebAPI/NavigatorAttractions.WebAPI.csproj", "src/NavigatorAttractions.WebAPI/"]
@@ -39,11 +37,8 @@ RUN dotnet build "NavigatorAttractions.WebAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
 ARG BUILD_NUMBER
-RUN dotnet tool list -g
-#RUN setversion 7.0.1.${BUILD_NUMBER}
-RUN setversion 7.0.1.0
+RUN setversion 7.0.1.${BUILD_NUMBER}
 RUN dotnet publish "NavigatorAttractions.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
 
 FROM base AS final
 WORKDIR /app
