@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Execution;
 using NavigatorAttractions.Core.Models;
 using NavigatorAttractions.Data.Entities.Photos;
 using NavigatorAttractions.Data.Enums;
@@ -47,10 +46,9 @@ namespace NavigatorAttractions.Service.Services
             return _mapper.Map<Photo, PhotoModel>(result);
         }
 
-        public async Task<List<string>> GetPhotoMachineTags(string photoId)
+        public async Task<List<string>> GetPhotoMachineTags(long photoId)
         {
-            var id = long.Parse(photoId);
-            var photo = await this.GetPhoto(id);
+            var photo = await this.GetPhoto(photoId);
             var tags = photo?.MachineTags?.Select(p => p.Tag.ToLower());
 
             return tags?.ToList();

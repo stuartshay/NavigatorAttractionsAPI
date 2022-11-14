@@ -36,9 +36,9 @@ namespace NavigatorAttractions.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(AttractionModel), 200)]
         [Produces("application/json", Type = typeof(AttractionModel))]
-        public async Task<IActionResult> Get(string photoId)
+        public async Task<IActionResult> Get(long photoId)
         {
-            if (string.IsNullOrEmpty(photoId))
+            if (string.IsNullOrEmpty(photoId.ToString()))
             {
                 return BadRequest();
             }

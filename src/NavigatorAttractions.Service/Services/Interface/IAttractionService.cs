@@ -20,7 +20,7 @@ namespace NavigatorAttractions.Service.Services.Interface
 
         Task<bool> ValidateMachineKey(string key);
 
-        Task<IList<string>> GetMachineKeys();
+        Task<List<string>> GetMachineKeys();
 
         Task<IList<string>> GetPredicates();
     }
