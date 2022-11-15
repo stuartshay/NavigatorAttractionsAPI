@@ -17,6 +17,6 @@
             }
         }
 
-        public string[] Tags { get; set; }
+        public string?[] Tags { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NavigatorAttractions.Core.Helpers;
+using NavigatorAttractions.Core.Models;
 
 namespace NavigatorAttractions.WebAPI.Test.Data
 {
@@ -115,38 +116,38 @@ namespace NavigatorAttractions.WebAPI.Test.Data
             return GetPhotoModel(1).First();
         }
 
-        //public static List<PhotoGalleryModel> GetPhotoGalleryModel(int count, bool widthMax = false)
-        //{
-        //    List<PhotoGalleryModel> photoGalleryModel = new List<PhotoGalleryModel>();
-        //    foreach (var photo in GetPhotoModel(count))
-        //    {
-        //        photoGalleryModel.Add(new PhotoGalleryModel
-        //        {
-        //            DateTaken = photo.DateTaken,
-        //            DateUploaded = photo.DateUploaded,
-        //            Width = 280,
-        //            Height = 320,
-        //            Id = photo.Id,
-        //            LastUpdated = photo.LastUpdated,
-        //            PhotoId = photo.PhotoId,
-        //            Title = photo.Title,
-        //            Url = "https://mockurl.com",
-        //        });
-        //    }
+        public static List<PhotoGalleryModel> GetPhotoGalleryModel(int count, bool widthMax = false)
+        {
+            List<PhotoGalleryModel> photoGalleryModel = new List<PhotoGalleryModel>();
+            foreach (var photo in GetPhotoModel(count))
+            {
+                photoGalleryModel.Add(new PhotoGalleryModel
+                {
+                    DateTaken = photo.DateTaken,
+                    DateUploaded = photo.DateUploaded,
+                    Width = 280,
+                    Height = 320,
+                    Id = photo.Id,
+                    LastUpdated = photo.LastUpdated,
+                    PhotoId = photo.PhotoId,
+                    Title = photo.Title,
+                    Url = "https://mockurl.com",
+                });
+            }
 
-        //    return photoGalleryModel;
-        //}
+            return photoGalleryModel;
+        }
 
-        //public static PagedResultModel<PhotoGalleryModel> GetPhotoGalleryPagedResult(int page, int limit, int total)
-        //{
-        //    return new PagedResultModel<PhotoGalleryModel>()
-        //    {
-        //        Total = total,
-        //        Limit = limit,
-        //        Page = page,
-        //        Results = GetPhotoGalleryModel(limit),
-        //    };
-        //}
+        public static PagedResultModel<PhotoGalleryModel> GetPhotoGalleryPagedResult(int page, int limit, int total)
+        {
+            return new PagedResultModel<PhotoGalleryModel>()
+            {
+                Total = total,
+                Limit = limit,
+                Page = page,
+                Results = GetPhotoGalleryModel(limit).Cast<dynamic>().ToList(),
+            };
+        }
 
         //public static AttractionPhotoModel GetAttractionPhotoModel()
         //{

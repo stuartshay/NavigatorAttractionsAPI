@@ -27,10 +27,10 @@ namespace NavigatorAttractions.Service.Test.Data
 
             var attractionFaker = new Faker<Attraction>()
                 .RuleFor(c => c.Id, f => Guid.NewGuid().ToString())
-                //.RuleFor(c => c.DisplayDate, f => displayDate)
+                .RuleFor(c => c.DisplayDate, f => displayDate)
                 .RuleFor(c => c.Title, f => f.Lorem.Sentence(10))
                 //.RuleFor(c => c.Photo, f => PhotoDataSet.GetAttractionPhoto())
-                //.RuleFor(c => c.MachineTags, f => MachineKeyDataSet.GetMachineTag(5))
+                  .RuleFor(c => c.MachineTags, f => MachineTagDataSet.GetMachineTags(5))
                 //.RuleFor(c => c.Inventory, f => InventoryDataSet.GetInventory())
                 //.RuleFor(c => c.loc, f => locationFaker)
                 //.RuleFor(c => c.Map, c => GetMap())

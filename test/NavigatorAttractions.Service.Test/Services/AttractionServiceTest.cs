@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Moq;
+using NavigatorAttractions.Core.Models;
+using NavigatorAttractions.Data.Filters;
+using NavigatorAttractions.Data.Filters.GeoRequest;
 using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Service.Models.Attractions;
 using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
 using NavigatorAttractions.Service.Test.Data;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -63,6 +67,131 @@ namespace NavigatorAttractions.Service.Test.Services
             Assert.IsType<List<AttractionModel>>(sut);
         }
 
+        [Fact()]
+        [Trait("Category", "Unit")]
+        public async Task Get_Attractions_By_Tags()
+        {
+            // Arrange 
+            var dataSet = AttractionDataSet.GetAttractions(5);
+            var tags = (from t in dataSet?.FirstOrDefault()?.MachineTags select t.Tag).ToArray();
+
+            var mockAttractionRepository = new Mock<IAttractionRepository>();
+            mockAttractionRepository.Setup(a => a.GetAttractions(It.IsAny<string[]>()))
+                .ReturnsAsync(dataSet);
+
+            var service = GetAttractionService(mockAttractionRepository.Object);
+
+            // Act
+            var sut = await service.GetAttractions(tags);
+
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<List<AttractionModel>>(sut);
+        }
+
+        [Fact(Skip = "TODO")]
+        [Trait("Category", "Unit")]
+        public async Task Get_Validate_MachineKey_Returns_True()
+        {
+            // Arrange
+            var attractionRepository = new Mock<IAttractionRepository>();
+            attractionRepository.Setup(b => b.ValidateMachineKey(It.IsAny<string>()))
+                .ReturnsAsync(true);
+
+            var attractionService = GetAttractionService(attractionRepository.Object);
+
+            // Act
+            var sut = await attractionService.ValidateMachineKey(It.IsAny<string>());
+
+            // Assert
+            Assert.True(sut);
+        }
+
+        [Fact(DisplayName = "Attraction Paging")]
+        [Trait("Category", "Unit")]
+        public async Task Get_Attractions_Paging_Returns_Data()
+        {
+            int totalCount = 100;
+            int pageSize = 20;
+
+            // Arrange
+            var dataSet = AttractionDataSet.GetAttractions(pageSize);
+
+            var attractionRepository = new Mock<IAttractionRepository>();
+            attractionRepository.Setup(b => b.GetAttractionsCount(It.IsAny<AttractionRequest>()))
+                .ReturnsAsync(totalCount);
+
+            attractionRepository.Setup(b => b.GetAttractions(It.IsAny<AttractionRequest>()))
+                .ReturnsAsync(dataSet);
+
+            var attractionService = GetAttractionService(attractionRepository.Object);
+
+            // Act
+            var request = new AttractionRequest { PageSize = pageSize, Page = 1 };
+            var sut = await attractionService.GetAttractions(request);
+
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsAssignableFrom<PagedResultModel<dynamic>>(sut);
+        }
+
+        [Fact(DisplayName = "Attraction Paging - Location Distance")]
+        [Trait("Category", "Unit")]
+        public async Task Get_Attractions_Paging_Location_Distance_Returns_Data()
+        {
+            int totalCount = 100;
+            int pageSize = 20;
+
+            var locationPoint = new Point(1, 1);
+            var location = new GeoWithin
+            {
+                CenterSphere = new CenterSphere { Center = locationPoint },
+            };
+
+            // Arrange
+            var dataSet = AttractionDataSet.GetAttractions(pageSize);
+
+            var attractionRepository = new Mock<IAttractionRepository>();
+            attractionRepository.Setup(b => b.GetAttractionsCount(It.IsAny<AttractionRequest>()))
+                .ReturnsAsync(totalCount);
+
+            attractionRepository.Setup(b => b.GetAttractions(It.IsAny<AttractionRequest>()))
+                .ReturnsAsync(dataSet);
+
+            var attractionService = GetAttractionService(attractionRepository.Object);
+
+            // Act
+            var request = new AttractionRequest { PageSize = pageSize, Page = 1, Location = location };
+            var sut = await attractionService.GetAttractions(request);
+
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsAssignableFrom<PagedResultModel<dynamic>>(sut);
+        }
+
+        [Fact(Skip = "TODO")]
+        [Trait("Category", "Unit")]
+        public async Task Save_Attraction_Returns_Success()
+        {
+            // Arrange
+            var dataSet = AttractionDataSet.GetAttraction();
+            var dataSetModel = AttractionDataSet.GetAttraction();
+
+            //var result = new RepositoryActionResult<Attraction>(dataSet, ResultConstants.UpsertedStatus);
+
+            //var attractionRepository = new Mock<IAttractionRepository>();
+            //attractionRepository.Setup(b => b.Upsert(dataSet))
+            //    .ReturnsAsync(result);
+
+            //var attractionService = GetAttractionService(attractionRepository.Object);
+
+            //// Act
+            //var sut = await attractionService.UpdateAttraction(dataSetModel);
+
+            //// Assert
+            //Assert.NotNull(sut);
+            //Assert.IsType<RepositoryActionResult<Attraction>>(sut);
+        }
 
         [Fact(Skip = "TODO")]
         [Trait("Category", "Unit")]
@@ -85,7 +214,6 @@ namespace NavigatorAttractions.Service.Test.Services
             Assert.NotNull(sut);
             Assert.IsType<List<string>>(sut);
         }
-
 
         private AttractionService GetAttractionService(IAttractionRepository? attractionRepository = null)
         {

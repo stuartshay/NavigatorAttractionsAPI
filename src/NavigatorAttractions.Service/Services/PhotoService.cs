@@ -100,8 +100,8 @@ namespace NavigatorAttractions.Service.Services
                 Total = totalCount,
                 Page = photoRequest.Page,
                 Limit = photoRequest.PageSize,
-                //Results = photos.ToList(),
-            };
+                Results = photos.Cast<dynamic>().ToList(),
+        };
 
             return resultList;
         }

@@ -95,44 +95,46 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             Assert.True(objectResult.StatusCode == 400);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_Photo_Paging_ReturnsData()
         {
             int limit = 100;
             int page = 2;
             int total = 450;
+            
             var attractionDataSet = AttractionDataSet.GetAttractionModel();
+            
             var attractionService = new Mock<IAttractionService>();
             attractionService.Setup(b => b.GetAttraction(It.IsAny<string>()))
                 .ReturnsAsync(attractionDataSet);
 
-            //var photoDataSet = PhotoDataSet.GetPhotoGalleryPagedResult(page, limit, total);
-            //var photoService = new Mock<IPhotoService>();
-            //photoService.Setup(b => b.GetPhotos(It.IsAny<PhotoRequest>()))
-            //            .ReturnsAsync(photoDataSet);
+            var photoDataSet = PhotoDataSet.GetPhotoGalleryPagedResult(page, limit, total);
+            var photoService = new Mock<IPhotoService>();
+            photoService.Setup(b => b.GetPhotos(It.IsAny<PhotoRequest>()))
+                        .ReturnsAsync(photoDataSet);
 
-            //var controller = GetPhotoController(photoService.Object, attractionService.Object);
+            var controller = GetPhotoController(photoService.Object, attractionService.Object);
 
-            //// Act
-            //var sut = await controller.Get(It.IsAny<string>(), limit, page, null);
+            // Act
+            var sut = await controller.Get(It.IsAny<string>(), limit, page, null);
 
-            //// Assert
-            //Assert.NotNull(sut);
-            //Assert.IsType<OkObjectResult>(sut);
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<OkObjectResult>(sut);
 
-            //var objectResult = sut as OkObjectResult;
-            //Assert.NotNull(objectResult);
-            //Assert.True(objectResult.StatusCode == 200);
-            //Assert.IsType<PagedResultModel<PhotoGalleryModel>>(objectResult.Value);
+            var objectResult = sut as OkObjectResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 200);
+            Assert.IsType<PagedResultModel<PhotoGalleryModel>>(objectResult.Value);
 
-            //var result = objectResult.Value as PagedResultModel<PhotoGalleryModel>;
-            //Assert.NotNull(result);
-            //Assert.Equal(limit, result.Results.Count);
+            var result = objectResult.Value as PagedResultModel<PhotoGalleryModel>;
+            Assert.NotNull(result);
+            Assert.Equal(limit, result.Results.Count);
             //Assert.IsType<List<PhotoGalleryModel>>(result.Results);
-            //Assert.Equal(limit * page, result.To);
-            //Assert.Equal(((page - 1) * limit) + 1, result.From);
-            //Assert.Equal(limit, result.Limit);
+            Assert.Equal(limit * page, result.To);
+            Assert.Equal(((page - 1) * limit) + 1, result.From);
+            Assert.Equal(limit, result.Limit);
         }
 
         [Fact]
