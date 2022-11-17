@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -14,45 +15,44 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
 {
     public class PhotoAttractionControllerTest
     {
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_Attractions_By_Photo_Id_ReturnsData()
         {
             int count = 3;
-            var dataSet = new List<string>
-            {
-                "nycwayfinding:monument=puck",
-            };
+            var dataSet = new List<string> { "nycwayfinding:monument=puck" };
+            var attrationDataSet = AttractionDataSet.GetAttractions(count);
 
-            //var dataSet2 = AttractionDataSet.GetAttractionModel(3);
+            var photoId = 9999999;
 
-            //var photoService = new Mock<IPhotoService>();
-            //photoService.Setup(b => b.GetPhotoMachineTags(It.IsAny<string>()))
-            //   .ReturnsAsync(dataSet);
+            var photoService = new Mock<IPhotoService>();
+            photoService.Setup(b => b.GetPhotoMachineTags(It.IsAny<long>()))
+                .Returns(Task.FromResult(dataSet));
 
-            //var attractionService = new Mock<IAttractionService>();
-            //attractionService.Setup(b => b.GetAttractions(It.IsAny<string[]>()))
-            //  .ReturnsAsync(dataSet2);
-            //attractionService.Setup(b => b.ValidateMachineKey(It.IsAny<string>()))
-            //    .ReturnsAsync(true);
+            var attractionService = new Mock<IAttractionService>();
+            attractionService.Setup(b => b.ValidateMachineKey(It.IsAny<string>()))
+                .ReturnsAsync(true);
 
-            //var controller = GetPhotoAttractionController(attractionService.Object, photoService.Object);
+            attractionService.Setup(b => b.GetAttractions(It.IsAny<string[]>()))
+                .ReturnsAsync(attrationDataSet);
 
-            //// Act
-            //var sut = await controller.Get(StringHelper.RandomString(10));
+            var controller = GetPhotoAttractionController(attractionService.Object, photoService.Object);
 
-            //// Assert
-            //Assert.NotNull(sut);
-            //Assert.IsType<OkObjectResult>(sut);
+            // Act
+            var sut = await controller.Get(photoId);
 
-            //var objectResult = sut as OkObjectResult;
-            //Assert.NotNull(objectResult);
-            //Assert.True(objectResult.StatusCode == 200);
-            //Assert.IsType<List<AttractionModel>>(objectResult.Value);
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<OkObjectResult>(sut);
 
-            //var result = objectResult.Value as List<AttractionModel>;
-            //Assert.NotNull(result);
-            //Assert.Equal(count, result.Count);
+            var objectResult = sut as OkObjectResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 200);
+            Assert.IsType<List<AttractionModel>>(objectResult.Value);
+
+            var result = objectResult.Value as List<AttractionModel>;
+            Assert.NotNull(result);
+            Assert.Equal(count, result.Count);
         }
 
         [Fact]
@@ -60,19 +60,23 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
         public async Task Get_Attractions_By_Photo_Id_Attraction_NotFound()
         {
             var dataSet = new List<string> { "nycwayfinding:monument=puck" };
+            var photoId = 9999999;
 
             var photoService = new Mock<IPhotoService>();
             photoService.Setup(b => b.GetPhotoMachineTags(It.IsAny<long>()))
                 .Returns(Task.FromResult(dataSet));
 
             var attractionService = new Mock<IAttractionService>();
+            attractionService.Setup(b => b.ValidateMachineKey(It.IsAny<string>()))
+                .ReturnsAsync(true);
+
             attractionService.Setup(b => b.GetAttractions(It.IsAny<string[]>()))
                 .Returns(Task.FromResult((List<AttractionModel>)null));
 
-            var controller = GetPhotoAttractionController(null, photoService.Object);
+            var controller = GetPhotoAttractionController(attractionService.Object, photoService.Object);
 
             // Act
-            var sut = await controller.Get(It.IsAny<long>());
+            var sut = await controller.Get(photoId);
 
             // Assert
             photoService.Verify(b => b.GetPhotoMachineTags(It.IsAny<long>()));
@@ -87,21 +91,28 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
 
             var result = objectResult.Value as string;
             Assert.NotNull(result);
-            // Assert.Equal(StatusMessageConstants.NotFoundAttraction, result.ToString());
+            Assert.Equal(StatusMessageConstants.NotFoundAttraction, result);
         }
 
         [Fact]
         [Trait("Category", "Unit")]
         public async Task Get_Attractions_By_Photo_Id_MachineTag_NotFound()
         {
+            var dataSet = new List<string> { "nycwayfinding:monument=puck" };
+            var photoId = 9999999;
+
             var photoService = new Mock<IPhotoService>();
             photoService.Setup(b => b.GetPhotoMachineTags(It.IsAny<long>()))
-                 .Returns(Task.FromResult((List<string>)null));
+                .ReturnsAsync(dataSet);
 
-            var controller = GetPhotoAttractionController(null, photoService.Object);
+            var attractionService = new Mock<IAttractionService>();
+            attractionService.Setup(b => b.ValidateMachineKey(It.IsAny<string>()))
+                .ReturnsAsync(false);
+
+            var controller = GetPhotoAttractionController(attractionService.Object, photoService.Object);
 
             // Act
-            var sut = await controller.Get(It.IsAny<long>());
+            var sut = await controller.Get(photoId);
 
             // Assert
             photoService.Verify(b => b.GetPhotoMachineTags(It.IsAny<long>()));
@@ -119,7 +130,7 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
             Assert.Equal(StatusMessageConstants.NotFoundMachineTag, result);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_Attractions_By_Photo_Id_BadRequest()
         {

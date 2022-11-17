@@ -49,9 +49,15 @@ namespace NavigatorAttractions.Service.Services
         public async Task<List<string>> GetPhotoMachineTags(long photoId)
         {
             var photo = await this.GetPhoto(photoId);
-            var tags = photo?.MachineTags?.Select(p => p.Tag.ToLower());
+            if (photo?.MachineTags == null)
+            {
+                return new List<string>();
+            }
 
-            return tags?.ToList();
+            var tags = photo?.MachineTags?.Select(p => p.Tag.ToLower());
+            var result = tags != null && tags?.Count() > 0 ? tags.ToList() : null;
+           
+            return result;
         }
 
         public async Task<PhotoModel> GetPhoto(long photoId, DateTime? lastUpdated)

@@ -117,9 +117,10 @@ namespace NavigatorAttractions.Service.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> ValidateMachineKey(string key)
+        public async Task<bool> ValidateMachineKey(string key)
         {
-            throw new NotImplementedException();
+            var results = await _attractionRepository.ValidateMachineKey(key);
+            return results;
         }
 
         public async Task<List<string>> GetMachineKeys()
