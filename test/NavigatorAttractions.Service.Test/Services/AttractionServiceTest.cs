@@ -6,6 +6,7 @@ using NavigatorAttractions.Data.Filters;
 using NavigatorAttractions.Data.Filters.GeoRequest;
 using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Service.Models.Attractions;
+using NavigatorAttractions.Service.Models.Attractions.Maps;
 using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
 using NavigatorAttractions.Service.Test.Data;
@@ -89,7 +90,38 @@ namespace NavigatorAttractions.Service.Test.Services
             Assert.IsType<List<AttractionModel>>(sut);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact(DisplayName = "Attractions - With Markers", Skip = "TODO")]
+        [Trait("Category", "Unit")]
+        public async Task Get_Attraction_With_Markers_Returns_Data()
+        {
+            // Arrange
+            //var dataSet = AttractionDataSet.GetAttraction();
+            //var dataSetAttractions = AttractionDataSet.GetAttraction(10);
+
+            //var attractionRepository = new Mock<IAttractionRepository>();
+            //attractionRepository.Setup(b => b.Get(It.IsAny<string>()))
+            //    .ReturnsAsync(dataSet);
+
+            //attractionRepository.Setup(b => b.GetAttractionsCount(It.IsAny<AttractionRequest>()))
+            //    .ReturnsAsync(10);
+
+            //attractionRepository.Setup(b => b.GetAttractions(It.IsAny<AttractionRequest>()))
+            //    .ReturnsAsync(dataSetAttractions);
+
+            //var attractionService = GetAttractionService(attractionRepository.Object);
+
+            //// Act
+            //var sut = await attractionService.GetAttractionWithMarkers(It.IsAny<string>());
+
+            //// Assert
+            //Assert.NotNull(sut);
+            //Assert.IsType<AttractionModel>(sut);
+
+            //var mapMarkers = sut.Map.Markers;
+            //Assert.IsType<List<MarkerModel>>(mapMarkers);
+        }
+
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_Validate_MachineKey_Returns_True()
         {
@@ -193,17 +225,16 @@ namespace NavigatorAttractions.Service.Test.Services
             //Assert.IsType<RepositoryActionResult<Attraction>>(sut);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Get_MachineKeys()
         {
             // Arrange 
-            var dataSet = MachineTagDataSet.GetMachineTags(100);
+            var dataSet = MachineTagDataSet.GetMachineTags(100).Select(s => s.Tag).ToList();
 
             var mockAttractionRepository = new Mock<IAttractionRepository>();
             mockAttractionRepository.Setup(a => a.GetMachineKeys())
-             //   .ReturnsAsync(dataSet)
-                ;
+             .ReturnsAsync(dataSet);
 
             var service = GetAttractionService(mockAttractionRepository.Object);
 
@@ -214,6 +245,28 @@ namespace NavigatorAttractions.Service.Test.Services
             Assert.NotNull(sut);
             Assert.IsType<List<string>>(sut);
         }
+
+        [Fact()]
+        [Trait("Category", "Unit")]
+        public async Task Get_Predicates()
+        {
+            // Arrange 
+            var dataSet = MachineTagDataSet.GetMachineTags(100).Select(s => s.Tag).ToList();
+
+            var mockAttractionRepository = new Mock<IAttractionRepository>();
+            mockAttractionRepository.Setup(a => a.GetMachineKeys())
+                .ReturnsAsync(dataSet);
+
+            var service = GetAttractionService(mockAttractionRepository.Object);
+
+            // Act
+            var sut = await service.GetPredicates();
+
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<List<string>>(sut);
+        }
+
 
         private AttractionService GetAttractionService(IAttractionRepository? attractionRepository = null)
         {

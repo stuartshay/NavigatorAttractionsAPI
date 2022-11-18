@@ -66,7 +66,7 @@ namespace NavigatorAttractions.Service.Test.Services
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task Get_Photo_Exists_True()
+        public async Task Get_Photo_Id_Exists_True()
         {
             // Arrange
             var photoRepository = new Mock<IPhotoRepository>();
@@ -82,6 +82,27 @@ namespace NavigatorAttractions.Service.Test.Services
             photoRepository.Verify(b => b.GetPhotoExists(It.IsAny<string>()));
             Assert.True(sut);
         }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task Get_Photo_PhotoId_Exists_True()
+        {
+            // Arrange
+            var photoId = "9999999";
+            var photoRepository = new Mock<IPhotoRepository>();
+            photoRepository.Setup(b => b.GetPhotoExists(It.IsAny<long>()))
+                .ReturnsAsync(true);
+
+            var photoService = GetPhotoService(photoRepository.Object);
+
+            // Act
+            var sut = await photoService.GetPhotoExist(photoId);
+
+            // Assert
+            photoRepository.Verify(b => b.GetPhotoExists(It.IsAny<long>()));
+            Assert.True(sut);
+        }
+
 
         [Fact()]
         [Trait("Category", "Unit")]

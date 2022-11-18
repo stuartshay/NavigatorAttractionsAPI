@@ -11,7 +11,7 @@ namespace NavigatorAttractions.Service.Test.Data
         public static List<MachineTag> GetMachineTags(int count)
         {
             var machineKeyFaker = new Faker<MachineTag>()
-                .RuleFor(c => c.Tag, f => Guid.NewGuid().ToString());
+                .RuleFor(c => c.Tag, f => $"{Guid.NewGuid()}:{Guid.NewGuid()}={Guid.NewGuid()}");
 
             return machineKeyFaker.Generate(count);
         }

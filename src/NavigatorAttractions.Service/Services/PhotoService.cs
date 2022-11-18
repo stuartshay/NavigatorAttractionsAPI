@@ -28,7 +28,8 @@ namespace NavigatorAttractions.Service.Services
             bool isValid = long.TryParse(id, out _);
             if (isValid)
             {
-                return await _photoRepository.GetPhotoExists(long.Parse(id));
+                var photoId = long.Parse(id);
+                return await _photoRepository.GetPhotoExists(photoId);
             }
 
             return await _photoRepository.GetPhotoExists(id);

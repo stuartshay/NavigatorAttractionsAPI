@@ -112,9 +112,13 @@ namespace NavigatorAttractions.Service.Services
             };
         }
 
-        public Task<RepositoryActionResult<AttractionModel>> UpdateAttraction(AttractionModel attraction)
+        public async Task<RepositoryActionResult<AttractionModel>> UpdateAttraction(AttractionModel attraction)
         {
-            throw new NotImplementedException();
+            var item = _mapper.Map<AttractionModel, Attraction>(attraction);
+            var result = await _attractionRepository.Upsert(item);
+
+            var attractionModel = _mapper.Map<Attraction, AttractionModel>(result.Entity);
+            return new RepositoryActionResult<AttractionModel>(attractionModel, result.Status);
         }
 
         public async Task<bool> ValidateMachineKey(string key)

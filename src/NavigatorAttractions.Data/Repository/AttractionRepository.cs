@@ -118,7 +118,7 @@ namespace NavigatorAttractions.Data.Repository
             return result;
         }
 
-        public async Task<IList<string>> GetMachineKeys()
+        public async Task<List<string>> GetMachineKeys()
         {
             var pipeline = new[] {
                     new BsonDocument { { "$project", new BsonDocument("tags", "$machineTags.tag") } },

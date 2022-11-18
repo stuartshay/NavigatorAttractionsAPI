@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NavigatorAttractions.Core.Models;
 using NavigatorAttractions.Data.Enums;
 using NavigatorAttractions.Data.Filters;
@@ -15,7 +14,6 @@ namespace NavigatorAttractions.WebAPI.Controllers
     /// Photo Controller.
     /// </summary>
     [Route(RouteConstants.PhotoRoute)]
-    //[EnableCors("AllowAll")]
     public class PhotoController : ControllerBase
     {
         private readonly IPhotoService _photoService;

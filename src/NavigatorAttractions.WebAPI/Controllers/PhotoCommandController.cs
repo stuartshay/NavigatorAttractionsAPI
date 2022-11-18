@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using NavigatorAttractions.Data.Results;
@@ -16,7 +15,6 @@ namespace NavigatorAttractions.WebAPI.Controllers
     /// Photo Command Controller.
     /// </summary>
     [Route(RouteConstants.PhotoRoute)]
-    //[EnableCors("AllowAll")]
     public class PhotoCommandController : ControllerBase
     {
         private readonly IPhotoService _photoService;
