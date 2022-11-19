@@ -193,8 +193,8 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
 
         private PhotoController GetPhotoController(IPhotoService? photoService = null, IAttractionService? attractionService = null)
         {
-            attractionService = attractionService ?? new Mock<IAttractionService>().Object;
-            photoService = photoService ?? new Mock<IPhotoService>().Object;
+            attractionService ??= new Mock<IAttractionService>().Object;
+            photoService ??= new Mock<IPhotoService>().Object;
             var logger = new Mock<ILogger<PhotoController>>().Object;
 
             return new PhotoController(photoService, attractionService, logger);

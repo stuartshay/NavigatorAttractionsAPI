@@ -1,4 +1,5 @@
 ﻿using NavigatorAttractions.Data.Entities.Attractions.References;
+using NavigatorAttractions.Data.Entities.ReferenceTypes;
 
 namespace NavigatorAttractions.Service.Test.Data.Reference
 {

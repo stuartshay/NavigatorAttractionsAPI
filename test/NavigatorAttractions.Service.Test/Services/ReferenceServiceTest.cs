@@ -5,12 +5,10 @@ using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Service.Models.Keyword;
 using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
-using NavigatorAttractions.Service.Test.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using NavigatorAttractions.Service.Models.ReferenceTypes;
+using NavigatorAttractions.Service.Test.Data.Reference;
 using Xunit;
 
 namespace NavigatorAttractions.Service.Test.Services
@@ -34,6 +32,25 @@ namespace NavigatorAttractions.Service.Test.Services
 
         [Fact()]
         [Trait("Category", "Unit")]
+        public async Task Get_ReferenceType_List()
+        {
+            // Arrange 
+            var dataSet = ReferenceTypeDataSet.GetReferenceTypesList();
+            var mockReferenceTypeRepository = new Mock<IReferenceTypeRepository>();
+            mockReferenceTypeRepository.Setup(p => p.GetReferenceTypeList(It.IsAny<string>()))
+                .ReturnsAsync(dataSet);
+
+            var service = GetReferenceService(mockReferenceTypeRepository.Object);
+
+            // Act
+            var sut = await service.GetReferenceTypeList(It.IsAny<string>());
+
+            // Assert 
+            Assert.NotNull(sut);
+        }
+
+        [Fact()]
+        [Trait("Category", "Unit")]
         public async Task Get_ReferenceTypesFormat()
         {
             // Arrange 
@@ -47,12 +64,25 @@ namespace NavigatorAttractions.Service.Test.Services
             Assert.IsType<List<KeyValuePair<string, string>>>(sut);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
-        public async Task Get_ReferenceType()
+        public async Task Get_Reference_Book_Type()
         {
-            // Arrange 
-            var service = GetReferenceService();
+            // Arrange
+            var bookDataSet = ReferenceTypeDataSet.GetBookTypeReference();
+
+            var mockReferenceTypeRepository = new Mock<IReferenceTypeRepository>();
+            mockReferenceTypeRepository.Setup(p => p.GetReferenceType(It.IsAny<string>()))
+                .ReturnsAsync(bookDataSet);
+
+            var service = GetReferenceService(mockReferenceTypeRepository.Object);
+
+            // Act
+            var sut = await service.GetReferenceType(It.IsAny<string>());
+
+            //Assert
+            Assert.NotNull(sut);
+            Assert.IsType<BookTypeModel>(sut);
         }
 
         [Fact()]
