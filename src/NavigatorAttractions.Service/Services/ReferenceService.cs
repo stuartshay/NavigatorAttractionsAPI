@@ -22,11 +22,11 @@ namespace NavigatorAttractions.Service.Services
         {
             var list = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("book", "Book"),
-                new KeyValuePair<string, string>("dataSource", "Data Source"),
-                new KeyValuePair<string, string>("website", "Web Site"),
-                new KeyValuePair<string, string>("wikipedia", "Wikipedia"),
-                new KeyValuePair<string, string>("photoReference", "Photo"),
+                new("book", "Book"),
+                new("dataSource", "Data Source"),
+                new("website", "Web Site"),
+                new("wikipedia", "Wikipedia"),
+                new("photoReference", "Photo"),
             };
 
             return Task.FromResult(list);
@@ -36,22 +36,22 @@ namespace NavigatorAttractions.Service.Services
         {
             var list = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("book", "blue"),
-                new KeyValuePair<string, string>("dataSource", "red"),
-                new KeyValuePair<string, string>("website", "green"),
-                new KeyValuePair<string, string>("wikipedia", "orange"),
-                new KeyValuePair<string, string>("photoReference", "purple"),
+                new("book", "blue"),
+                new("dataSource", "red"),
+                new("website", "green"),
+                new("wikipedia", "orange"),
+                new("photoReference", "purple"),
             };
 
             return Task.FromResult(list);
         }
 
-        public Task<ReferenceTypeModel> GetReferenceType(string id)
+        public async Task<ReferenceTypeModel> GetReferenceType(string id)
         {
-            var reference = _referenceRepository.GetReferenceType(id).Result;
+            var reference = await _referenceRepository.GetReferenceType(id);
             var model = Convert(reference) as ReferenceTypeModel;
 
-            return Task.FromResult(model);
+            return model;
         }
 
         public Task<List<KeyValuePair<string, string>>> GetReferenceTypeList(string type)
@@ -66,10 +66,10 @@ namespace NavigatorAttractions.Service.Services
         {
             var list = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("nyccentralpark", "Central Park"),
-                new KeyValuePair<string, string>("nycprospectpark", "Prospect Park"),
-                new KeyValuePair<string, string>("nycparks", "NYC Parks"),
-                new KeyValuePair<string, string>("nycwayfinding", "NYC Wayfinding"),
+                new("nyccentralpark", "Central Park"),
+                new("nycprospectpark", "Prospect Park"),
+                new("nycparks", "NYC Parks"),
+                new("nycwayfinding", "NYC Wayfinding"),
             };
 
             return Task.FromResult(list);
@@ -79,22 +79,22 @@ namespace NavigatorAttractions.Service.Services
         {
             var list = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("archbridge", "Arch Bridge"),
-                new KeyValuePair<string, string>("architecture", "Architecture"),
-                new KeyValuePair<string, string>("fountain", "Fountain"),
-                new KeyValuePair<string, string>("garden", "Garden"),
-                new KeyValuePair<string, string>("gate", "Gate"),
-                new KeyValuePair<string, string>("greenwood", "GreenWood"),
-                new KeyValuePair<string, string>("landscapes", "Landscape"),
-                new KeyValuePair<string, string>("monument", "Monument"),
-                new KeyValuePair<string, string>("nationallandmark", "National Historic Landmarks"),
-                new KeyValuePair<string, string>("nationalplace", "National Historic Places"),
-                new KeyValuePair<string, string>("nationaldistict", "National Historic District"),
-                new KeyValuePair<string, string>("interestpoint", "Point of Interest"),
-                new KeyValuePair<string, string>("recreation", "Recreation "),
-                new KeyValuePair<string, string>("sculpture", "Sculpture"),
-                new KeyValuePair<string, string>("streetfurniture", "Street Furniture"),
-                new KeyValuePair<string, string>("tablet", "Tablet"),
+                new("archbridge", "Arch Bridge"),
+                new("architecture", "Architecture"),
+                new("fountain", "Fountain"),
+                new("garden", "Garden"),
+                new("gate", "Gate"),
+                new("greenwood", "GreenWood"),
+                new("landscapes", "Landscape"),
+                new("monument", "Monument"),
+                new("nationallandmark", "National Historic Landmarks"),
+                new("nationalplace", "National Historic Places"),
+                new("nationaldistict", "National Historic District"),
+                new("interestpoint", "Point of Interest"),
+                new("recreation", "Recreation "),
+                new("sculpture", "Sculpture"),
+                new("streetfurniture", "Street Furniture"),
+                new("tablet", "Tablet"),
             };
 
             return Task.FromResult(list);

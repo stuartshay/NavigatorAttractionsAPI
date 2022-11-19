@@ -60,6 +60,10 @@ namespace NavigatorAttractions.Service.Profiles
             CreateMap<Marker, MarkerModel>();
             CreateMap<Point, PointModel>();
 
+            CreateMap<MapModel, Map>();
+            CreateMap< MarkerModel, Marker>();
+            CreateMap<PointModel, Point>();
+
             CreateMap<Reference, ReferenceModel>()
                      .Include<Book, BookModel>()
                      .Include<DataSource, DataSourceModel>()

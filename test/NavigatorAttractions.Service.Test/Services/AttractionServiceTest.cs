@@ -13,6 +13,8 @@ using NavigatorAttractions.Service.Test.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NavigatorAttractions.Data.Entities.Attractions;
+using NavigatorAttractions.Data.Results;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -201,28 +203,27 @@ namespace NavigatorAttractions.Service.Test.Services
             Assert.IsAssignableFrom<PagedResultModel<dynamic>>(sut);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact()]
         [Trait("Category", "Unit")]
         public async Task Save_Attraction_Returns_Success()
         {
             // Arrange
-            var dataSet = AttractionDataSet.GetAttraction();
-            var dataSetModel = AttractionDataSet.GetAttraction();
+            var dataSetInputModel = AttractionDataSet.GetAttractionModel();
+            var dataSetResult = new RepositoryActionResult<Attraction>(AttractionDataSet.GetAttraction(), 
+                ResultConstants.UpsertedStatus);
 
-            //var result = new RepositoryActionResult<Attraction>(dataSet, ResultConstants.UpsertedStatus);
+            var attractionRepository = new Mock<IAttractionRepository>();
+            attractionRepository.Setup(b => b.Upsert(It.IsAny<Attraction>()))
+                .ReturnsAsync(dataSetResult);
 
-            //var attractionRepository = new Mock<IAttractionRepository>();
-            //attractionRepository.Setup(b => b.Upsert(dataSet))
-            //    .ReturnsAsync(result);
+            var attractionService = GetAttractionService(attractionRepository.Object);
 
-            //var attractionService = GetAttractionService(attractionRepository.Object);
+            // Act
+            var sut = await attractionService.UpdateAttraction(dataSetInputModel);
 
-            //// Act
-            //var sut = await attractionService.UpdateAttraction(dataSetModel);
-
-            //// Assert
-            //Assert.NotNull(sut);
-            //Assert.IsType<RepositoryActionResult<Attraction>>(sut);
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<RepositoryActionResult<AttractionModel>>(sut);
         }
 
         [Fact()]
@@ -266,7 +267,6 @@ namespace NavigatorAttractions.Service.Test.Services
             Assert.NotNull(sut);
             Assert.IsType<List<string>>(sut);
         }
-
 
         private AttractionService GetAttractionService(IAttractionRepository? attractionRepository = null)
         {

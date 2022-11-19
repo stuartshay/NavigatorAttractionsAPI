@@ -5,6 +5,7 @@ using Bogus;
 using NavigatorAttractions.Core.Models;
 using NavigatorAttractions.Data.Entities.Attractions;
 using NavigatorAttractions.Data.Entities.Locations;
+using NavigatorAttractions.Service.Models.Attractions;
 
 namespace NavigatorAttractions.Service.Test.Data
 {
@@ -55,35 +56,38 @@ namespace NavigatorAttractions.Service.Test.Data
             };
         }
 
-        //public static List<AttractionModel> GetAttractionModel(int count)
-        //{
-        //    var locationFaker = new Faker<LocModel>()
-        //        .RuleFor(c => c.lat, c => c.Random.Double(40.1, 41))
-        //        .RuleFor(c => c.lon, c => c.Random.Double(-73.1, 73.9))
-        //        .RuleFor(c => c.City, (f, _) => f.Address.City())
-        //        .FinishWith((_, __) => Console.WriteLine($"LocModel"));
-        //    var location = locationFaker.Generate();
+        public static List<AttractionModel> GetAttractionsModel(int count)
+        {
+            //var locationFaker = new Faker<LocModel>()
+            //    .RuleFor(c => c.lat, c => c.Random.Double(40.1, 41))
+            //    .RuleFor(c => c.lon, c => c.Random.Double(-73.1, 73.9))
+            //    .RuleFor(c => c.City, (f, _) => f.Address.City())
+            //    .FinishWith((_, __) => Console.WriteLine($"LocModel"));
+            //var location = locationFaker.Generate();
 
-        //    var displayDateFaker = new Faker<DisplayDateModel>()
-        //        .RuleFor(m => m.StartDate, m => m.Date.Recent(10))
-        //        .RuleFor(m => m.EndDate, m => m.Date.Recent(20));
-        //    var displayDate = displayDateFaker.Generate();
+            var displayDateFaker = new Faker<DisplayDateModel>()
+                .RuleFor(m => m.StartDate, m => m.Date.Recent(10))
+                .RuleFor(m => m.EndDate, m => m.Date.Recent(20));
+            var displayDate = displayDateFaker.Generate();
 
-        //    var attractionFaker = new Faker<AttractionModel>()
-        //        .RuleFor(c => c.Id, f => Guid.NewGuid().ToString())
-        //        .RuleFor(c => c.Title, f => f.Lorem.Sentence(10))
-        //        .RuleFor(c => c.Photo, f => PhotoDataSet.GetAttractionPhotoModel())
-        //        .RuleFor(c => c.MachineTags, f => MachineKeyDataSet.GetMachineTagModel(5))
-        //        .RuleFor(c => c.Inventory, f => InventoryDataSet.GetInventoryModel())
-        //        .RuleFor(c => c.DisplayDate, f => displayDate)
-        //        // .RuleFor(c => c.Map, f => GetMapModel())
-        //        .RuleFor(c => c.loc, f => f.PickRandom(location))
-        //        .FinishWith((f, bp) => Console.WriteLine($"AttractionModel Id={bp.Id}"));
+            var attractionFaker = new Faker<AttractionModel>()
+                .RuleFor(c => c.Id, f => Guid.NewGuid().ToString())
+                .RuleFor(c => c.Title, f => f.Lorem.Sentence(10))
+                .RuleFor(c => c.Photo, f => PhotoDataSet.GetAttractionPhotoModel())
+                //.RuleFor(c => c.MachineTags, f => MachineKeyDataSet.GetMachineTagModel(5))
+                //.RuleFor(c => c.Inventory, f => InventoryDataSet.GetInventoryModel())
+                .RuleFor(c => c.DisplayDate, f => displayDate)
+                // .RuleFor(c => c.Map, f => GetMapModel())
+                //.RuleFor(c => c.loc, f => f.PickRandom(location))
+                .FinishWith((f, bp) => Console.WriteLine($"AttractionModel Id={bp.Id}"));
 
-        //    return attractionFaker.Generate(count);
-        //}
+            return attractionFaker.Generate(count);
+        }
 
-
+        public static AttractionModel GetAttractionModel()
+        {
+            return GetAttractionsModel(1).First();
+        }
 
 
 
@@ -112,10 +116,7 @@ namespace NavigatorAttractions.Service.Test.Data
         //    return mapFaker.Generate();
         //}
 
-        //public static NavigatorAttractionsAPI.Data.Model.Attraction GetAttraction()
-        //{
-        //    return GetAttraction(1).First();
-        //}
+
     }
 
 }
