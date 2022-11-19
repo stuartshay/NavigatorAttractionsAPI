@@ -29,7 +29,7 @@ namespace NavigatorAttractions.Data.Entities.Photos
         public DateTime LastUpdated { get; set; }
 
         [BsonElement("machineTags")]
-        public List<MachineTag> MachineTags { get; set; }
+        public List<MachineTag>? MachineTags { get; set; }
 
         [BsonElement("permission")]
         public Permission Permission { get; set; }

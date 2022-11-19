@@ -104,12 +104,12 @@ namespace NavigatorAttractions.Service.Services
         {
             var list = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("MONUMENT", "Monument"),
-                new KeyValuePair<string, string>("SCULPTURE", "Sculpture"),
-                new KeyValuePair<string, string>("BUILDING", "Building"),
-                new KeyValuePair<string, string>("STRUCTURE", "Structure"),
-                new KeyValuePair<string, string>("DISTRICT", "District"),
-                new KeyValuePair<string, string>("SITE", "Site"),
+                new("MONUMENT", "Monument"),
+                new("SCULPTURE", "Sculpture"),
+                new("BUILDING", "Building"),
+                new("STRUCTURE", "Structure"),
+                new("DISTRICT", "District"),
+                new("SITE", "Site"),
             };
 
             return Task.FromResult(list);
@@ -119,10 +119,10 @@ namespace NavigatorAttractions.Service.Services
         {
             var list = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("permanent", "Permanent"),
-                new KeyValuePair<string, string>("temporary", "Temporary"),
-                new KeyValuePair<string, string>("storage", "Storage"),
-                new KeyValuePair<string, string>("lost", "Lost"),
+                new("permanent", "Permanent"),
+                new("temporary", "Temporary"),
+                new("storage", "Storage"),
+                new("lost", "Lost"),
             };
 
             return Task.FromResult(list);

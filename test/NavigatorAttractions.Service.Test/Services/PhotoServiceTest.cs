@@ -126,6 +126,27 @@ namespace NavigatorAttractions.Service.Test.Services
 
         [Fact()]
         [Trait("Category", "Unit")]
+        public async Task Get_Photo_Empty_MachineTags()
+        {
+            // Arrange
+            var dataSet = PhotoDataSet.GetPhoto();
+            dataSet.MachineTags = null;
+
+            var mockPhotoRepository = new Mock<IPhotoRepository>();
+            mockPhotoRepository.Setup(p => p.GetPhoto(It.IsAny<long>(), null))
+                .ReturnsAsync(dataSet);
+
+            var service = GetPhotoService(mockPhotoRepository.Object);
+
+            // Act 
+            var sut = await service.GetPhotoMachineTags(It.IsAny<long>());
+
+            // Assert
+            Assert.True(sut.Count == 0);
+        }
+
+        [Fact()]
+        [Trait("Category", "Unit")]
         public async Task Get_Photos()
         {
             // Arrange

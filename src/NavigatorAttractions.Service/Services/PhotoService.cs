@@ -50,14 +50,14 @@ namespace NavigatorAttractions.Service.Services
         public async Task<List<string>> GetPhotoMachineTags(long photoId)
         {
             var photo = await this.GetPhoto(photoId);
-            if (photo?.MachineTags == null)
+            if (photo?.MachineTags?.Count == 0)
             {
                 return new List<string>();
             }
 
             var tags = photo?.MachineTags?.Select(p => p.Tag.ToLower());
             var result = tags != null && tags?.Count() > 0 ? tags.ToList() : null;
-           
+            
             return result;
         }
 
