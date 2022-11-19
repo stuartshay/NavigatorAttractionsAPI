@@ -9,8 +9,8 @@ namespace NavigatorAttractions.Data.Entities.ReferenceTypes
     public class ReferenceType : IEntity<string>
     {
         [BsonRepresentation(BsonType.String)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
-        public string ShortDescription { get; set; }
+        public string? ShortDescription { get; set; }
     }
 }

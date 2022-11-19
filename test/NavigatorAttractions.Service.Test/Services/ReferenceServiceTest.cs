@@ -3,12 +3,12 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Service.Models.Keyword;
+using NavigatorAttractions.Service.Models.ReferenceTypes;
 using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
+using NavigatorAttractions.Service.Test.Data.Reference;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NavigatorAttractions.Service.Models.ReferenceTypes;
-using NavigatorAttractions.Service.Test.Data.Reference;
 using Xunit;
 
 namespace NavigatorAttractions.Service.Test.Services

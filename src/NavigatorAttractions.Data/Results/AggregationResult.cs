@@ -2,8 +2,8 @@
 {
     public class AggregationResult
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
-        public IList<string> Items { get; set; }
+        public IList<string>? Items { get; set; }
     }
 }
