@@ -1,5 +1,5 @@
 ﻿using GeoCoordinatePortable;
-using GeoJSON.Net.Geometry;
+using NavigatorAttractions.Data.Filters.GeoRequest;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -32,47 +32,47 @@ namespace NavigatorAttractions.Service.Test.Functional
             _output.WriteLine($"Distance|{distance}");
         }
 
-        [Fact]
+        [Fact()]
         [Trait("Category", "Unit")]
         public void Create_Location_Radius()
         {
             var lat = 40.712d;
             var lon = -74.005d;
 
-            //var location = new GeoWithin
-            //{
-            //    CenterSphere = new CenterSphere
-            //    {
-            //        Center = new Point(lat, lon),
-            //        Radius = .1 / 3963.2,
-            //    },
-            //};
+            var location = new GeoWithin
+            {
+                CenterSphere = new CenterSphere
+                {
+                    Center = new Point(lat, lon),
+                    Radius = .1 / 3963.2,
+                },
+            };
 
-            //Assert.IsType<GeoWithin>(location);
+            Assert.IsType<GeoWithin>(location);
 
-            //_output.WriteLine($"{location.CenterSphere.Center.Latitude}");
-            //_output.WriteLine($"{location.CenterSphere.Center.Longitude}");
-            //_output.WriteLine($"{location.CenterSphere.Radius}");
-            //_output.WriteLine($"{location.CenterSphere.Center}");
+            _output.WriteLine($"{location.CenterSphere.Center.Latitude}");
+            _output.WriteLine($"{location.CenterSphere.Center.Longitude}");
+            _output.WriteLine($"{location.CenterSphere.Radius}");
+            _output.WriteLine($"{location.CenterSphere.Center}");
         }
 
-        [Fact]
+        [Fact(Skip = "TODO")]
         [Trait("Category", "Unit")]
         public void Get_Coordinates_Model()
         {
             var lat = 40.712d;
             var lon = -74.005d;
 
-            //var location = new GeoWithin
-            //{
-            //    CenterSphere = new CenterSphere
-            //    {
-            //        Center = new Point(lat, lon),
-            //        Radius = .1 / 3963.2,
-            //    },
-            //};
+            var location = new GeoWithin
+            {
+                CenterSphere = new CenterSphere
+                {
+                    Center = new Point(lat, lon),
+                    Radius = .1 / 3963.2,
+                },
+            };
 
-            //Assert.IsType<GeoWithin>(location);
+            Assert.IsType<GeoWithin>(location);
             //LocModel loc = new LocModel { lat = lat, lon = lon };
 
             //var cord = LocationHelpers.GetCoordinates(location, loc);

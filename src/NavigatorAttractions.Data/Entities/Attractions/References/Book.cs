@@ -9,10 +9,10 @@ namespace NavigatorAttractions.Data.Entities.Attractions.References
         public int Copyright { get; set; }
 
         [BsonElement("page")]
-        public string Page { get; set; }
+        public string? Page { get; set; }
 
         [BsonElement("codeNumber")]
-        public string CodeNumber { get; set; }
+        public string? CodeNumber { get; set; }
 
         [BsonIgnore]
         public override string Type => "Book";
