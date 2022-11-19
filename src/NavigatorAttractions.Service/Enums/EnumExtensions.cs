@@ -5,7 +5,7 @@ namespace NavigatorAttractions.Service.Enums
 {
     public class EnumExtensions
     {
-        public static T GetPhotoSize<T>(string photoSize)
+        public static T? GetPhotoSize<T>(string photoSize)
         {
             var type = typeof(T);
             if (!type.GetTypeInfo().IsEnum)

@@ -134,29 +134,29 @@ namespace NavigatorAttractions.Service.Test.Builders
             Assert.EndsWith($".jpg", sut.Url);
         }
 
-        //[Fact]
-        //[Trait("Category", "Unit")]
-        //public void Get_AttractionModel_Empty_Photo()
-        //{
-        //    AttractionModel dataSet = AttractionDataSet.GetAttractionModel();
-        //    dataSet.Photo = null;
+        [Fact]
+        [Trait("Category", "Unit")]
+        public void Get_AttractionModel_Empty_Photo()
+        {
+            AttractionModel dataSet = AttractionDataSet.GetAttractionModel();
+            dataSet.Photo = null;
 
-        //    // Act
-        //    var sut = PhotoHelpers.CheckEmptyPhoto(dataSet);
+            // Act
+            var sut = PhotoHelpers.CheckEmptyPhoto(dataSet);
 
-        //    // Assert
-        //    Assert.IsType<AttractionModel>(dataSet);
-        //    Assert.NotNull(dataSet.Photo);
+            // Assert
+            Assert.IsType<AttractionModel>(dataSet);
+            Assert.NotNull(dataSet.Photo);
 
-        //    Assert.NotNull(sut);
-        //    Assert.IsType<AttractionModel>(sut);
+            Assert.NotNull(sut);
+            Assert.IsType<AttractionModel>(sut);
 
-        //    Assert.Equal(PhotoConstants.UrlPlaceholder, sut.Photo.Url);
-        //    Assert.Equal(PhotoConstants.IdPlaceholder.ToString(), sut.Photo.Id);
-        //    Assert.Equal(PhotoConstants.TitlePlaceholder, sut.Photo.Title);
+            Assert.Equal(PhotoConstants.UrlPlaceholder, sut.Photo.Url);
+            Assert.Equal(PhotoConstants.IdPlaceholder.ToString(), sut.Photo.Id);
+            Assert.Equal(PhotoConstants.TitlePlaceholder, sut.Photo.Title);
 
-        //    Assert.Equal(PhotoConstants.WidthPlaceholder, sut.Photo.Width);
-        //    Assert.Equal(PhotoConstants.HeightUrlPlaceholder, sut.Photo.Height);
-        //}
+            Assert.Equal(PhotoConstants.WidthPlaceholder, sut.Photo.Width);
+            Assert.Equal(PhotoConstants.HeightUrlPlaceholder, sut.Photo.Height);
+        }
     }
 }

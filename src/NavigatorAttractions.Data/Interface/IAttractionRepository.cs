@@ -22,6 +22,6 @@ namespace NavigatorAttractions.Data.Interface
 
         Task<bool> ValidateMachineKey(string tag);
 
-        Task<IList<string>> GetMachineKeys();
+        Task<List<string>> GetMachineKeys();
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NavigatorAttractions.Service.Models.Attractions;
 using NavigatorAttractions.Service.Services.Interface;
 using NavigatorAttractions.WebAPI.Constants;
@@ -10,7 +9,6 @@ namespace NavigatorAttractions.WebAPI.Controllers
     /// Photo Attraction Controller.
     /// </summary>
     [Route("api/photo/attraction")]
-    //[EnableCors("AllowAll")]
     public class PhotoAttractionController : ControllerBase
     {
         private readonly IPhotoService _photoService;
@@ -36,15 +34,15 @@ namespace NavigatorAttractions.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(AttractionModel), 200)]
         [Produces("application/json", Type = typeof(AttractionModel))]
-        public async Task<IActionResult> Get(string photoId)
+        public async Task<IActionResult> Get(long photoId = 5501115902)
         {
-            if (string.IsNullOrEmpty(photoId))
+            if (photoId == 0)
             {
                 return BadRequest();
             }
 
             var machineTags = await _photoService.GetPhotoMachineTags(photoId);
-            if (machineTags == null)
+            if (machineTags.Count == 0)
                 return NotFound(StatusMessageConstants.NotFoundMachineTag);
 
             var values = machineTags.Select(x => x.ToLower()).ToArray();
@@ -61,7 +59,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
 
             var results = await _attractionService.GetAttractions(tags.ToArray());
             if (results == null)
-                return NotFound("Not Found: Attraction");
+                return NotFound(StatusMessageConstants.NotFoundAttraction);
 
             return Ok(results);
         }

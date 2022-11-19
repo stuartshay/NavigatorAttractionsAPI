@@ -14,7 +14,7 @@ namespace NavigatorAttractions.Service.Services.Interface
 
         Task<PhotoModel> GetPhoto(long photoId);
 
-        Task<List<string>> GetPhotoMachineTags(string photoId);
+        Task<List<string>> GetPhotoMachineTags(long photoId);
 
         Task<PhotoModel> GetPhoto(long photoId, DateTime? lastUpdated);
 

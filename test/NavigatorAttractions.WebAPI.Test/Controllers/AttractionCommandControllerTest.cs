@@ -127,21 +127,21 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
 
             var controller = GetAttractionCommandController(attractionService.Object, photoService.Object);
 
-            //// Act
-            //var sut = await controller.Patch(It.IsAny<string>(), patch);
+            // Act
+            var sut = await controller.Patch( patch, It.IsAny<string>());
 
             // Assert
-            // Assert.NotNull(sut);
-            // Assert.IsType<OkObjectResult>(sut);
+            Assert.NotNull(sut);
+            Assert.IsType<OkObjectResult>(sut);
 
-            // var objectResult = sut as OkObjectResult;
-            // Assert.NotNull(objectResult);
-            // Assert.True(objectResult.StatusCode == 200);
-            // Assert.IsType<AttractionModel>(objectResult.Value);
+            var objectResult = sut as OkObjectResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 200);
+            Assert.IsType<AttractionModel>(objectResult.Value);
 
-            // var result = objectResult.Value as AttractionModel;
-            // Assert.NotNull(result);
-            // Assert.Equal(dataSet.Id, result.Id);
+            var result = objectResult.Value as AttractionModel;
+            Assert.NotNull(result);
+            Assert.Equal(dataSet.Id, result.Id);
         }
 
         [Fact]
@@ -150,16 +150,16 @@ namespace NavigatorAttractions.WebAPI.Test.Controllers
         {
             var controller = GetAttractionCommandController();
 
-            //// Act
-            //var sut = await controller.Patch(It.IsAny<string>(), null);
+            // Act
+            var sut = await controller.Patch(null, It.IsAny<string>());
 
-            //// Assert
-            //Assert.NotNull(sut);
-            //Assert.IsType<BadRequestResult>(sut);
+            // Assert
+            Assert.NotNull(sut);
+            Assert.IsType<BadRequestResult>(sut);
 
-            //var objectResult = sut as BadRequestResult;
-            //Assert.NotNull(objectResult);
-            //Assert.True(objectResult.StatusCode == 400);
+            var objectResult = sut as BadRequestResult;
+            Assert.NotNull(objectResult);
+            Assert.True(objectResult.StatusCode == 400);
         }
 
         private AttractionCommandController GetAttractionCommandController(IAttractionService? attractionService = null, IPhotoService? photoService = null)

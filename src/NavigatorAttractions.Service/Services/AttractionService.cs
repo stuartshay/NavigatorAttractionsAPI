@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using NavigatorAttractions.Core.Models;
+using NavigatorAttractions.Data.Entities.Attractions;
 using NavigatorAttractions.Data.Filters;
 using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Service.Models.Attractions;
@@ -44,9 +45,18 @@ namespace NavigatorAttractions.Service.Services
             return mappedResults;
         }
 
-        public Task<List<AttractionModel>> GetAttractions(string[] tags)
+        public async Task<List<AttractionModel>> GetAttractions(string[] tags)
         {
-            throw new NotImplementedException();
+            var items = await _attractionRepository.GetAttractions(tags);
+            var results = _mapper.Map<List<Attraction>, List<AttractionModel>>(items.ToList());
+
+            //results = results.Select(p =>
+            //{
+            //    p.References = _referenceHelpers.FormatReferenceModel(p.References);
+            //    return p;
+            //}).ToList();
+
+            return results;
         }
 
         public async Task<PagedResultModel<dynamic>> GetAttractions(AttractionRequest attractionRequest)
@@ -102,20 +112,25 @@ namespace NavigatorAttractions.Service.Services
             };
         }
 
-        public Task<RepositoryActionResult<AttractionModel>> UpdateAttraction(AttractionModel attraction)
+        public async Task<RepositoryActionResult<AttractionModel>> UpdateAttraction(AttractionModel attraction)
         {
-            throw new NotImplementedException();
+            var item = _mapper.Map<AttractionModel, Attraction>(attraction);
+            var result = await _attractionRepository.Upsert(item);
+
+            var attractionModel = _mapper.Map<Attraction, AttractionModel>(result.Entity);
+            return new RepositoryActionResult<AttractionModel>(attractionModel, result.Status);
         }
 
-        public Task<bool> ValidateMachineKey(string key)
+        public async Task<bool> ValidateMachineKey(string key)
         {
-            throw new NotImplementedException();
+            var results = await _attractionRepository.ValidateMachineKey(key);
+            return results;
         }
 
-        public async Task<IList<string>> GetMachineKeys()
+        public async Task<List<string>> GetMachineKeys()
         {
             var results = await _attractionRepository.GetMachineKeys();
-            return results;
+            return results.ToList();
         }
 
         public async Task<IList<string>> GetPredicates()

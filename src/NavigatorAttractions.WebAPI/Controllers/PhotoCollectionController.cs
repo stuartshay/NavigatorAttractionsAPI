@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NavigatorAttractions.Service.Models.PhotoCollections;
 using NavigatorAttractions.Service.Results;
 using NavigatorAttractions.Service.Services.Interface;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace NavigatorAttractions.WebAPI.Controllers
 {
@@ -12,7 +10,6 @@ namespace NavigatorAttractions.WebAPI.Controllers
     ///     PhotoCollection Controller.
     /// </summary>
     [Route("api/photocollection")]
-   // [EnableCors("AllowAll")]
     public class PhotoCollectionController : ControllerBase
     {
         private readonly IPhotoService _photoService;
@@ -34,8 +31,8 @@ namespace NavigatorAttractions.WebAPI.Controllers
         [HttpPost]
         [Route("status")]
         //[SwaggerRequestExample(typeof(PhotoCollectionRequest), typeof(PhotoCollectionSearchModel))]
-        //[ProducesResponseType(typeof(PhotoCollectionStatusResult), 200)]
-        //[Produces("application/json", Type = typeof(PhotoCollectionStatusResult))]
+        [ProducesResponseType(typeof(PhotoCollectionStatusResult), 200)]
+        [Produces("application/json", Type = typeof(PhotoCollectionStatusResult))]
         public async Task<IActionResult> GetPhotoCollectionStatus([FromBody][Required] List<PhotoCollectionRequest> request)
         {
             var results = new List<PhotoStatusResult>();

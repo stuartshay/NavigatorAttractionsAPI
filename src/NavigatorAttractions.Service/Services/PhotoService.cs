@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Execution;
 using NavigatorAttractions.Core.Models;
 using NavigatorAttractions.Data.Entities.Photos;
 using NavigatorAttractions.Data.Enums;
@@ -29,7 +28,8 @@ namespace NavigatorAttractions.Service.Services
             bool isValid = long.TryParse(id, out _);
             if (isValid)
             {
-                return await _photoRepository.GetPhotoExists(long.Parse(id));
+                var photoId = long.Parse(id);
+                return await _photoRepository.GetPhotoExists(photoId);
             }
 
             return await _photoRepository.GetPhotoExists(id);
@@ -47,13 +47,18 @@ namespace NavigatorAttractions.Service.Services
             return _mapper.Map<Photo, PhotoModel>(result);
         }
 
-        public async Task<List<string>> GetPhotoMachineTags(string photoId)
+        public async Task<List<string>> GetPhotoMachineTags(long photoId)
         {
-            var id = long.Parse(photoId);
-            var photo = await this.GetPhoto(id);
-            var tags = photo?.MachineTags?.Select(p => p.Tag.ToLower());
+            var photo = await this.GetPhoto(photoId);
+            if (photo?.MachineTags?.Count == 0)
+            {
+                return new List<string>();
+            }
 
-            return tags?.ToList();
+            var tags = photo?.MachineTags?.Select(p => p.Tag.ToLower());
+            var result = tags != null && tags?.Count() > 0 ? tags.ToList() : null;
+            
+            return result;
         }
 
         public async Task<PhotoModel> GetPhoto(long photoId, DateTime? lastUpdated)
@@ -102,8 +107,8 @@ namespace NavigatorAttractions.Service.Services
                 Total = totalCount,
                 Page = photoRequest.Page,
                 Limit = photoRequest.PageSize,
-                //Results = photos.ToList(),
-            };
+                Results = photos.Cast<dynamic>().ToList(),
+        };
 
             return resultList;
         }

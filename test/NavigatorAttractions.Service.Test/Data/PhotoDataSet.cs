@@ -23,7 +23,7 @@ namespace NavigatorAttractions.Service.Test.Data
                 .RuleFor(c => c.DateTaken, f => f.Date.Past(3))
                 .RuleFor(c => c.PhotoId, f => RandomExtensions.LongRandom(100000000, 199999999))
                 .RuleFor(c => c.PhotoSizes, f => GetPhotoSizes(inverse))
-                .RuleFor(c => c.MachineTags, f => GetMachineTags((int)RandomExtensions.LongRandom(0, 5)))
+                .RuleFor(c => c.MachineTags, f => MachineTagDataSet.GetMachineTags((int)RandomExtensions.LongRandom(0, 5)))
                 .RuleFor(c => c.Exif, f => new Exif
                 {
                     Aperture = 3.5,
@@ -51,7 +51,7 @@ namespace NavigatorAttractions.Service.Test.Data
                 .RuleFor(c => c.DateTaken, f => f.Date.Past(3))
                 .RuleFor(c => c.PhotoId, f => RandomExtensions.LongRandom(100000000, 199999999))
                 .RuleFor(c => c.PhotoSizes, f => GetPhotoSizes(inverse))
-                .RuleFor(c => c.MachineTags, f => GetMachineTags(5))
+                .RuleFor(c => c.MachineTags, f => MachineTagDataSet.GetMachineTags(5))
                 .RuleFor(c => c.DisplayCategories, f => new List<DisplayCategoryModel>
                 {
                     new DisplayCategoryModel { Category = "Test" },
@@ -178,20 +178,6 @@ namespace NavigatorAttractions.Service.Test.Data
         //    };
         //}
 
-        public static List<MachineTag> GetMachineTags(int count)
-        {
-            var machineKeyFaker = new Faker<MachineTag>()
-                .RuleFor(c => c.Tag, f => Guid.NewGuid().ToString());
 
-            return machineKeyFaker.Generate(count);
-        }
-
-        public static List<MachineTagModel> GetMachineTagsModel(int count)
-        {
-            var machineKeyFaker = new Faker<MachineTagModel>()
-                .RuleFor(c => c.Tag, f => Guid.NewGuid().ToString());
-
-            return machineKeyFaker.Generate(count);
-        }
     }
 }

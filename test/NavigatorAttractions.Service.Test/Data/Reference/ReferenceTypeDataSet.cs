@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using NavigatorAttractions.Data.Entities.ReferenceTypes;
+using NavigatorAttractions.Service.Models.ReferenceTypes;
 
 namespace NavigatorAttractions.Service.Test.Data.Reference
 {
@@ -8,11 +11,11 @@ namespace NavigatorAttractions.Service.Test.Data.Reference
         {
             var referenceTypes = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("book", "Book"),
-                new KeyValuePair<string, string>("dataSource", "Data Source"),
-                new KeyValuePair<string, string>("website", "Web Site"),
-                new KeyValuePair<string, string>("wikipedia", "Wikipedia"),
-                new KeyValuePair<string, string>("photoReference", "Photo"),
+                new("book", "Book"),
+                new("dataSource", "Data Source"),
+                new("website", "Web Site"),
+                new("wikipedia", "Wikipedia"),
+                new("photoReference", "Photo"),
             };
 
             return referenceTypes;
@@ -22,25 +25,53 @@ namespace NavigatorAttractions.Service.Test.Data.Reference
         {
             var referenceTypes = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("0136202535", "Manhattan's Outdoor Sculpture"),
-                new KeyValuePair<string, string>("0195383869", "AIA Guide to New York City"),
-                new KeyValuePair<string, string>("0393732665", "Public Art New York"),
-                new KeyValuePair<string, string>("0931311063", "Bridges of Central Park"),
-                new KeyValuePair<string, string>("0966343506", "Brooklyn's Green-Wood Cemetery"),
+                new("0136202535", "Manhattan's Outdoor Sculpture"),
+                new("0195383869", "AIA Guide to New York City"),
+                new("0393732665", "Public Art New York"),
+                new("0931311063", "Bridges of Central Park"),
+                new("0966343506", "Brooklyn's Green-Wood Cemetery"),
             };
 
             return referenceTypes;
         }
 
-        //public static ReferenceTypeModel GetTypeModel()
-        //{
-        //    var model = new ReferenceTypeModel
-        //    {
-        //        Id = "123456",
-        //        ShortDescription = "Description",
-        //    };
+        public static BookType GetBookTypeReference()
+        {
+            var item = new NavigatorAttractions.Data.Entities.ReferenceTypes.BookType
+            {
+                Id = "0393732665",
+                Title = "Public Art New York",
+                ShortDescription = "Public Art New York",
+                ISBN13 = "978-0393732665",
+                Author = "Jean Parker Phifer",
+                Pages = 288,
+                Publisher = "W. W. Norton & Company",
+                PublishedDate = "March 30, 2009"
+            };
 
-        //    return model;
-        //}
+            return item;
+        }
+
+        public static List<ReferenceType> GetReferenceTypesList()
+        {
+            var list = new List<ReferenceType>
+            {
+                new ReferenceType{Id = Guid.NewGuid().ToString(), ShortDescription = Guid.NewGuid().ToString()},
+                new ReferenceType{Id = Guid.NewGuid().ToString(), ShortDescription = Guid.NewGuid().ToString()}
+            };
+
+            return list;
+        }
+
+        public static ReferenceTypeModel GetTypeModel()
+        {
+            var model = new ReferenceTypeModel
+            {
+                Id = "123456",
+                ShortDescription = "Description",
+            };
+
+            return model;
+        }
     }
 }

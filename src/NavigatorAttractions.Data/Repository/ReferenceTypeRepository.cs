@@ -29,16 +29,17 @@ namespace NavigatorAttractions.Data.Repository
             _documentCollection = repository.GetDocumentCollection(connectionString);
         }
 
-        public Task<ReferenceType> GetReferenceType(string id)
+        public async Task<ReferenceType> GetReferenceType(string id)
         {
             var builder = Builders<BsonDocument>.Filter;
             var filter = builder.Eq("_id", id);
 
-            var document = _documentCollection.FindAsync<BsonDocument>(filter).Result.FirstOrDefault();
+            var document = await _documentCollection.FindAsync<BsonDocument>(filter);
+            var model = Convert(document.FirstOrDefault()) as ReferenceType;
 
-            var model = Convert(document) as ReferenceType;
-            return Task.FromResult(model);
+            return model;
         }
+
 
         public async Task<List<ReferenceType>> GetReferenceTypeList(string type)
         {

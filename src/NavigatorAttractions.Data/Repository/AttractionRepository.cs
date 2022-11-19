@@ -110,13 +110,15 @@ namespace NavigatorAttractions.Data.Repository
         {
             Guard.ThrowIfNull(tag, nameof(tag));
 
+            //TODO: Tags need to be all lower case
             var builder = Builders<Attraction>.Filter
                 .ElemMatch(x => x.MachineTags, x => x.Tag.ToLower() == tag.ToLower());
 
-            return await collection.Find(builder).AnyAsync();
+            var result = await collection.Find(builder).AnyAsync();
+            return result;
         }
 
-        public async Task<IList<string>> GetMachineKeys()
+        public async Task<List<string>> GetMachineKeys()
         {
             var pipeline = new[] {
                     new BsonDocument { { "$project", new BsonDocument("tags", "$machineTags.tag") } },
