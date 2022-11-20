@@ -11,7 +11,7 @@ namespace NavigatorAttractions.Service.Models.Attractions
             this.Map = new MapModel();
         }
 
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         public string? Title { get; set; }
 
