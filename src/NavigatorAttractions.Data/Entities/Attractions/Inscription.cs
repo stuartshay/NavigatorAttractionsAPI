@@ -8,6 +8,6 @@ namespace NavigatorAttractions.Data.Entities.Attractions
     public class Inscription
     {
         [BsonElement("bodyText")]
-        public string BodyText { get; set; }
+        public string? BodyText { get; set; }
     }
 }

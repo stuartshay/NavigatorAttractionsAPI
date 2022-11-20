@@ -7,7 +7,7 @@ namespace NavigatorAttractions.Data.Entities.Photos
     [BsonIgnoreExtraElements(true)]
     public class Exif
     {
-        public string Camera { get; set; }
+        public string? Camera { get; set; }
 
         public double? ShutterSpeed { get; set; }
 

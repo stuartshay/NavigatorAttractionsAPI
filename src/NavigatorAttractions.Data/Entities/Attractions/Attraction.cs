@@ -13,47 +13,47 @@ namespace NavigatorAttractions.Data.Entities.Attractions
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [BsonElement("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [BsonElement("key")]
-        public string Key { get; set; }
+        public string? Key { get; set; }
 
         [BsonElement("featureKey")]
-        public string FeatureKey { get; set; }
+        public string? FeatureKey { get; set; }
 
         [BsonElement("catalog")]
-        public string Catalog { get; set; }
+        public string? Catalog { get; set; }
 
         [BsonElement("objectType")]
-        public string ObjectType { get; set; }
+        public string? ObjectType { get; set; }
 
         [BsonElement("slug")]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
 
         [BsonElement("display")]
-        public string Display { get; set; }
+        public string? Display { get; set; }
 
         [BsonElement("displayDate")]
-        public DisplayDate DisplayDate { get; set; }
+        public DisplayDate? DisplayDate { get; set; }
 
-        public loc loc { get; set; }
+        public loc? loc { get; set; }
 
         [BsonElement("keywords")]
         [BsonIgnoreIfNull(true)]
-        public List<string> Keywords { get; set; }
+        public List<string>? Keywords { get; set; }
 
         [BsonElement("aliases")]
         [BsonIgnoreIfNull(true)]
-        public List<string> Aliases { get; set; }
+        public List<string>? Aliases { get; set; }
 
         [BsonElement("inventory")]
-        public Inventory Inventory { get; set; }
+        public Inventory? Inventory { get; set; }
 
         [BsonElement("inscription")]
-        public Inscription Inscription { get; set; }
+        public Inscription? Inscription { get; set; }
 
         //[BsonElement("photo")]
         //public AttractionPhoto Photo { get; set; }

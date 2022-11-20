@@ -10,31 +10,24 @@ namespace NavigatorAttractions.Data.Entities.Locations
         public double? lon { get; set; }
 
         [BsonElement("location")]
-
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
         [BsonElement("sectorId")]
-
-        public string SectorId { get; set; }
+        public string? SectorId { get; set; }
 
         [BsonElement("neighborhood")]
-
-        public string Neighborhood { get; set; }
+        public string? Neighborhood { get; set; }
 
         [BsonElement("address")]
-
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         [BsonElement("city")]
-
-        public string City { get; set; }
+        public string? City { get; set; }
 
         [BsonElement("state")]
-
-        public string State { get; set; }
+        public string? State { get; set; }
 
         [BsonElement("postalCode")]
-
-        public string PostalCode { get; set; }
+        public string? PostalCode { get; set; }
     }
 }

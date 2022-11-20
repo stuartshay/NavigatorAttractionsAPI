@@ -5,13 +5,13 @@ namespace NavigatorAttractions.Data.Entities.Attractions.References
     public class Website : Reference
     {
         [BsonElement("siteName")]
-        public string SiteName { get; set; }
+        public string? SiteName { get; set; }
 
         [BsonElement("url")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         [BsonIgnore]
-        public override string Type => "Website";
+        public override string? Type => "Website";
 
         public override string ToString()
         {

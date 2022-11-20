@@ -7,10 +7,10 @@ namespace NavigatorAttractions.Data.Entities.Photos
     [BsonIgnoreExtraElements(true)]
     public class Author
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public string Uri { get; set; }
+        public string? Uri { get; set; }
     }
 }

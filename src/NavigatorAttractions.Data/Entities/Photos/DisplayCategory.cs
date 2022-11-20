@@ -7,6 +7,6 @@ namespace NavigatorAttractions.Data.Entities.Photos
     [BsonIgnoreExtraElements(true)]
     public class DisplayCategory
     {
-        public string Category { get; set; }
+        public string? Category { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace NavigatorAttractions.Data.Entities.Attractions.References
     public class DataSource : Reference
     {
         [BsonElement("controlNumber")]
-        public string ControlNumber { get; set; }
+        public string? ControlNumber { get; set; }
 
         [BsonIgnore]
         public override string Type => "DataSource";

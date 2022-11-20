@@ -9,70 +9,70 @@ namespace NavigatorAttractions.Data.Entities.Attractions
     {
         [BsonElement("sculptor")]
         [BsonIgnoreIfNull(true)]
-        public string Sculptor { get; set; }
+        public string? Sculptor { get; set; }
 
         [BsonElement("artist")]
         [BsonIgnoreIfNull(true)]
-        public string Artist { get; set; }
+        public string? Artist { get; set; }
 
         [BsonElement("architect")]
         [BsonIgnoreIfNull(true)]
-        public string Architect { get; set; }
+        public string? Architect { get; set; }
 
         [BsonElement("founder")]
         [BsonIgnoreIfNull(true)]
-        public string Founder { get; set; }
+        public string? Founder { get; set; }
 
         [BsonElement("carver")]
         [BsonIgnoreIfNull(true)]
-        public string Carver { get; set; }
+        public string? Carver { get; set; }
 
         [BsonElement("materials")]
         [BsonIgnoreIfNull(true)]
-        public string Materials { get; set; }
+        public string? Materials { get; set; }
 
         [BsonElement("dimensions")]
         [BsonIgnoreIfNull(true)]
-        public string Dimensions { get; set; }
+        public string? Dimensions { get; set; }
 
         [BsonElement("fabricator")]
         [BsonIgnoreIfNull(true)]
-        public string Fabricator { get; set; }
+        public string? Fabricator { get; set; }
 
         [BsonElement("date")]
         [BsonIgnoreIfNull(true)]
-        public string Date { get; set; }
+        public string? Date { get; set; }
 
         [BsonElement("castDate")]
         [BsonIgnoreIfNull(true)]
-        public string CastDate { get; set; }
+        public string? CastDate { get; set; }
 
         [BsonElement("dedicated")]
         [BsonIgnoreIfNull(true)]
-        public string Dedicated { get; set; }
+        public string? Dedicated { get; set; }
 
         [BsonElement("donor")]
         [BsonIgnoreIfNull(true)]
-        public string Donor { get; set; }
+        public string? Donor { get; set; }
 
         [BsonElement("provenance")]
         [BsonIgnoreIfNull(true)]
-        public string Provenance { get; set; }
+        public string? Provenance { get; set; }
 
         [BsonElement("owner")]
         [BsonIgnoreIfNull(true)]
-        public string Owner { get; set; }
+        public string? Owner { get; set; }
 
         [BsonElement("style")]
         [BsonIgnoreIfNull(true)]
-        public string Style { get; set; }
+        public string? Style { get; set; }
 
         [BsonElement("styles")]
         [BsonIgnoreIfNull(true)]
-        public IEnumerable<string> Styles { get; set; }
+        public IEnumerable<string>? Styles { get; set; }
 
         [BsonElement("objectType")]
         [BsonIgnoreIfNull(true)]
-        public string ObjectType { get; set; }
+        public string? ObjectType { get; set; }
     }
 }

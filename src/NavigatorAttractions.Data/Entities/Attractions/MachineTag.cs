@@ -7,6 +7,6 @@ namespace NavigatorAttractions.Data.Entities.Attractions
     public class MachineTag
     {
         [BsonElement("tag")]
-        public string Tag { get; set; }
+        public string? Tag { get; set; }
     }
 }

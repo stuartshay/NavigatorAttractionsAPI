@@ -17,18 +17,18 @@ namespace NavigatorAttractions.Data.Entities.Attractions.References
     {
         [BsonId(IdGenerator = typeof(GuidGenerator))]
         [BsonRepresentation(BsonType.String)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [BsonElement("referenceId")]
-        public string ReferenceId { get; set; }
+        public string? ReferenceId { get; set; }
 
         [BsonElement("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [BsonElement("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [BsonIgnore]
-        public virtual string Type { get; set; }
+        public virtual string? Type { get; set; }
     }
 }

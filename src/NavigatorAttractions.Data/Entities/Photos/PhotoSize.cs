@@ -7,17 +7,17 @@ namespace NavigatorAttractions.Data.Entities.Photos
     [BsonIgnoreExtraElements(true)]
     public class PhotoSize
     {
-        public string Suffix { get; set; }
+        public string? Suffix { get; set; }
 
-        public string Label { get; set; }
+        public string? Label { get; set; }
 
         public int Width { get; set; }
 
         public int Height { get; set; }
 
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
-        public string MediaType { get; set; }
+        public string? MediaType { get; set; }
 
         public string GetUrl(string farm, string server, int photoId, string secret, string suffix)
         {

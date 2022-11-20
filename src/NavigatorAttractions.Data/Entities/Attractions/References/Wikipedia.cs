@@ -5,7 +5,7 @@ namespace NavigatorAttractions.Data.Entities.Attractions.References
     public class Wikipedia : Reference
     {
         [BsonElement("url")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         [BsonIgnore]
         public override string Type => "Wikipedia";
