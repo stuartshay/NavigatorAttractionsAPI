@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using NavigatorAttractions.Data.Results;
 using NavigatorAttractions.Service.Models.Photos;
@@ -7,7 +6,7 @@ using NavigatorAttractions.Service.Results;
 using NavigatorAttractions.Service.Services.Interface;
 using NavigatorAttractions.Service.ValidationRules;
 using NavigatorAttractions.WebAPI.Constants;
-using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace NavigatorAttractions.WebAPI.Controllers
 {
@@ -52,7 +51,7 @@ namespace NavigatorAttractions.WebAPI.Controllers
             if (!validationResults.IsValid)
             {
                 var results = validationResults.Errors.Select(v => new { v.PropertyName, v.ErrorMessage }).ToJson();
-                _logger.LogError(JsonConvert.SerializeObject(results));
+                _logger.LogError("ValidationResults|{@results}", results);
 
                 var validationresult = new EntityResultModel<PhotoModel>
                 {

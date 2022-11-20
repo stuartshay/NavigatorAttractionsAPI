@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NavigatorAttractions.Data.Entities.Photos;
 using NavigatorAttractions.Data.Enums;
+using NavigatorAttractions.Data.Filters;
 using NavigatorAttractions.Data.Interface;
 using NavigatorAttractions.Service.Profiles;
 using NavigatorAttractions.Service.Services;
@@ -164,6 +165,47 @@ namespace NavigatorAttractions.Service.Test.Services
             // Assert
             Assert.NotNull(sut);
         }
+
+        [Fact()]
+        [Trait("Category", "Unit")]
+        public async Task Get_Photos_By_MachineTags()
+        {
+            // Arrange
+            var dataSet = PhotoDataSet.GetPhotoList(100);
+
+            var mockPhotoRepository = new Mock<IPhotoRepository>();
+            mockPhotoRepository.Setup(p => p.GetPhotos(It.IsAny<string[]>()))
+                .ReturnsAsync(dataSet);
+
+            var service = GetPhotoService(mockPhotoRepository.Object);
+
+            // Act 
+            var sut = await service.GetPhotos(It.IsAny<string[]>());
+
+            // Assert
+            Assert.NotNull(sut);
+        }
+
+        [Fact(Skip = "TODO")]
+        [Trait("Category", "Unit")]
+        public async Task Get_Photos_By_Filter()
+        {
+            // Arrange
+            var dataSet = PhotoDataSet.GetPhotoList(100);
+
+            var mockPhotoRepository = new Mock<IPhotoRepository>();
+            mockPhotoRepository.Setup(p => p.GetPhotos(It.IsAny<string[]>()))
+                .ReturnsAsync(dataSet);
+
+            var service = GetPhotoService(mockPhotoRepository.Object);
+
+            // Act 
+            var sut = await service.GetPhotos(It.IsAny<PhotoRequest>());
+
+            // Assert
+            Assert.NotNull(sut);
+        }
+
 
         [Fact]
         [Trait("Category", "Unit")]
